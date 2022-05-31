@@ -153,6 +153,7 @@ div {
 					</div>
 				</div>
 <%--			</form>--%>
+
 		</div>
 	</div>
 	
@@ -194,6 +195,7 @@ div {
 					data: form,
 					success: function(result){
 						cartAlert(result);
+
 					}
 				});
 			});
@@ -217,15 +219,44 @@ div {
 				if(${product.productStock} < quantity){
 					alert("주문수량에 비해 해당 상품 재고가 부족합니다.");
 				} else{
+					alert('test');
 					form.productQuantity = quantity
 					form.productId = ${product.productId};
 					$.ajax({
-						url: '../order/orderOne',
+						url: '/order/orderOne',
 						type: 'POST',
-						data: form
+						data: form,
+						dataType: "json",
+						success: function(result){
+							alert('성공');
+						console.log(result);
+						alert(result);
+						// location.href = '/order/orderResult';
+					}
 					});
 				}
 			});
+
+
+			// // 파일 업로드
+			// // ajax file upload logic START
+			// $.ajax({
+			// 	url: "/uploadAjaxAction",
+			// 	processData: false, // 전달할 데이터 query string 을 만들지 말 것
+			// 	contentType: false,
+			// 	data: formData,     // 전달할 데이터
+			// 	type: "POST",
+			// 	dataType: 'json',   // 받을 데이터 형식
+			// 	success: function (result) {
+			// 		console.log(result);
+			// 		showUploadedFile(result);
+			// 		$(".uploadDiv").html(cloneObj.html());
+			// 	},
+			// }); // $.ajax END
+
+
+
+
 
 		});
 	</script>

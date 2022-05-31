@@ -68,9 +68,5 @@ public class ProductController {
 
 		return result;
 	}
-	@GetMapping("/NewFile")
-	public void newFile(Model model) {
-		log.info("newFile");
-	}
 
 }
