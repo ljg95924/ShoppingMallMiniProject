@@ -10,14 +10,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.bio11.product.service.OrderService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,7 +56,7 @@ public class OrderController {
 
 	@PostMapping (value = "orderOne",  produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<OrderDTO> orderOne(OrderDTO order, HttpServletRequest request){
+	public ResponseEntity<Integer> orderOne(OrderDTO order, HttpServletRequest request){
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute("memberDto");
 		order.setUserId(member.getUserId());
@@ -72,16 +70,21 @@ public class OrderController {
 //			model.addAttribute("order", order);
 			log.info("오니?????");
 			log.info("Controller - orderOne Result: " + order);
-			return new ResponseEntity<>(order, HttpStatus.OK);
+			return new ResponseEntity<>(order.getOrderId(), HttpStatus.OK);
 		}
 
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
 	}
 
-	@PostMapping("/orderResult")
-	public String get(ProductDTO product, RedirectAttributes rttr) {
-		return "tewst";
+	@GetMapping("/orderResult")
+	public void orderResult(@RequestParam("orderId") String orderId) {
+		log.info("OrderController.get");
+		log.info("orderId : " + orderId);
+
+
+
+
 	}
 
 
