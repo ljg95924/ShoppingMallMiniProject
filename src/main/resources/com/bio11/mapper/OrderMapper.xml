@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bio11.mapper.OrderMapper">
 	<insert id="orderOne">
-		INSERT INTO order(user_id, order_name, order_time)
+		INSERT INTO orders(user_id, order_name, order_time)
 		VALUES(#{userId}, #{orderName}, SYSDATE)
 
 	</insert>

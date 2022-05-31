@@ -146,7 +146,7 @@ div {
 							장바구니
 						</a>
 					</div>
-					<div class="pageNew_goodsBtn02 w180" id="buy" onmousedown="markektingLog();">
+					<div class="pageNew_goodsBtn02 w180" id="buy">
 						<a class="btn_buy">
 							바로구매					
 						</a>
@@ -210,13 +210,19 @@ div {
 			}
 			// 결제버튼 클릭시
 			$(".btn_buy").on("click",function(){
-				form.productQuantity = $(".quantity_input").val();
-				form.productId = ${product.productId};
-				$.ajax({
-					url: '../order/orderOne',
-					type: 'POST',
-					data: form
-				});
+				var quantity = $(".quantity_input").val();
+
+				if(${product.productStock} < quantity){
+					alert("주문수량에 비해 해당 상품 재고가 부족합니다.");
+				} else{
+					form.productQuantity = quantity
+					form.productId = ${product.productId};
+					$.ajax({
+						url: '../order/orderOne',
+						type: 'POST',
+						data: form
+					});
+				}
 			});
 		});
 	</script>

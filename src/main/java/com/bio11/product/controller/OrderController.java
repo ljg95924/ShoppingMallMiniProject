@@ -5,6 +5,7 @@ import com.bio11.member.sevice.MemberService;
 import com.bio11.product.dto.OrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,12 +27,19 @@ public class OrderController {
 	@Autowired
 	private MemberService memberService;
 	@PostMapping ("orderOne")
-	public String orderOne(OrderDTO order, HttpServletRequest request){
+	public String orderOne(OrderDTO order, HttpServletRequest request, Model model){
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute("memberDto");
 		order.setUserId(member.getUserId());
 		order.setOrderName(member.getUserName());
-		orderService.orderOne(order);
-		return null;
+
+		log.info("Controller - orderOne: " + order);
+		int result = orderService.orderOne(order);
+		if(result == 1){
+			model.addAttribute("order", order);
+		}else{
+			model.addAttribute("order","fail");
+		}
+		return "order/orderResult";
 	}
 }
