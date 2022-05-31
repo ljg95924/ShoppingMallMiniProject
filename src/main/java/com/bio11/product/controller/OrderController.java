@@ -24,8 +24,6 @@ import javax.servlet.http.HttpSession;
 public class OrderController {
 	@Autowired
 	private OrderService orderService;
-	@Autowired
-	private MemberService memberService;
 	@PostMapping ("orderOne")
 	public String orderOne(OrderDTO order, HttpServletRequest request, Model model){
 		HttpSession session = request.getSession();
@@ -33,13 +31,18 @@ public class OrderController {
 		order.setUserId(member.getUserId());
 		order.setOrderName(member.getUserName());
 
-		log.info("Controller - orderOne: " + order);
 		int result = orderService.orderOne(order);
 		if(result == 1){
 			model.addAttribute("order", order);
+				log.info("Controller - orderOne Result: " + order);
+			return "/order/orderResult";
 		}else{
+			log.info("Controller--sss---");
 			model.addAttribute("order","fail");
+			return "/product/productDetail";
 		}
-		return "order/orderResult";
+
 	}
+
+
 }
