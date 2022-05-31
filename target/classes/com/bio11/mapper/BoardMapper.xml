@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bio11.mapper.BoardMapper">
+	
+	<select id='getList' resultType="com.bio11.member.dto.BoardDTO">
+		SELECT * FROM BOARD WHERE BOARD_ID > 0
+	</select>
+	
+	<select id='getListWithSearch' resultType="com.bio11.member.dto.BoardDTO">
+		SELECT * FROM BOARD
+		WHERE
+ 	<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type=='T'.toString()">BOARD_TITLE like '%' || #{keyword}||'%'</when>
+						<when test="type=='C'.toString()">BOARD_CONTENT like '%' || #{keyword}||'%'</when>
+						<when test="type=='W'.toString()">USER_ID like '%' || #{keyword}||'%'</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim> 
+		<include refid="criteria"></include>
+		BOARD_ID>0
+	</select>
+
+	
+	<insert id="insert">
+		INSERT INTO BOARD(BOARD_ID ,BOARD_TITLE, BOARD_CONTENT, USER_ID) VALUES(BOARD_ID_SEQ.nextval, #{boardTitle},#{boardContent},#{userId})
+	</insert>
+	
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="boardId" order="BEFORE" resultType="long">
+			select BOARD_ID_SEQ.nextval from dual
+		</selectKey>
+		INSERT INTO BOARD(BOARD_ID ,BOARD_TITLE, BOARD_CONTENT, USER_ID)
+		VALUES(#{boardId}, #{boardTitle}, #{boardContent}, #{userId})
+	</insert>
+	
+	<select id="read" resultType="com.bio11.member.dto.BoardDTO">
+		SELECT * FROM BOARD WHERE BOARD_ID=#{boardId}
+	</select>
+	
+	<update id="update">
+		UPDATE BOARD SET BOARD_TITLE=#{boardTitle}, BOARD_CONTENT=#{boardContent}, USER_ID=#{userId}, BOARD_UPDATE_DATE=sysdate WHERE BOARD_ID=#{boardId}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM BOARD WHERE BOARD_ID=#{boardId}
+	</delete>
+	
+	<select id="getTotalCount"  resultType="int">
+		SELECT COUNT(*) FROM BOARD
+		WHERE
+		<include refid="criteria"></include>
+		BOARD_ID>0
+	</select>
+	
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type=='T'.toString()">BOARD_TITLE like '%' || #{keyword}||'%'</when>
+						<when test="type=='C'.toString()">BOARD_CONTENT like '%' || #{keyword}||'%'</when>
+						<when test="type=='W'.toString()">USER_ID like '%' || #{keyword}||'%'</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
+</mapper>

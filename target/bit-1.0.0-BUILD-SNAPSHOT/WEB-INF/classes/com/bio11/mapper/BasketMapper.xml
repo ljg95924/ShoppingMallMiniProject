@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bio11.mapper.BasketMapper">
+	<insert id="addBasket">
+		INSERT INTO basket(user_id, product_id, product_quantity)
+		 VALUES(#{userId}, #{productId}, #{productQuantity})
+
+	</insert>
+	
+	<delete id="deleteBasket">
+		delete from basket where cart_id = #{cartId}
+	</delete>
+	
+	<update id="modifyCount">
+		update basket set product_quantity=#{productQuantity} where cart_id = #{cartId}
+	</update>
+	
+	<select id="getBasket" resultType="com.bio11.product.dto.BasketDTO">
+		select a.cart_Id, a.user_id, a.product_id, a.product_quantity, b.product_name, b.product_price
+		from basket a left outer join product b on a.product_id = b.product_id
+		where user_id = #{userId}
+	</select>
+	
+	<select id="checkBasket" resultType="com.bio11.product.dto.BasketDTO">
+		select * from basket
+		where user_id = #{userId} and product_id = #{productId}
+	</select>
+</mapper>

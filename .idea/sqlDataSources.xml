@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="20aa401b-810e-4e2c-9773-ef0624986eeb" name="bio11 Mapping">
+      <data-sources db="1646e357-c9dd-435d-8b31-a6334259bf39" ddl="a35432a2-578f-4c94-9cb7-604bd98f6361" />
+      <scope>
+        <node kind="schema" qname="BIO11" />
+      </scope>
+    </mapping>
+  </component>
+</project>

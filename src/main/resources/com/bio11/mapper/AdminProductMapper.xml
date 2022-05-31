@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bio11.mapper.AdminProductMapper">
+
+    <select id="findAll" resultType="com.bio11.product.dto.ProductDTO">
+            SELECT * FROM PRODUCT
+    </select>
+
+    <select id="findByProductId" resultType="com.bio11.product.dto.ProductDTO">
+        SELECT * FROM PRODUCT WHERE PRODUCT_ID = #{productId}
+    </select>
+
+    <update id="updateProduct">
+        UPDATE PRODUCT
+        SET PRODUCT_NAME = #{productName},
+            PRODUCT_TYPE = #{productType},
+            PRODUCT_PRICE = #{productPrice},
+            PRODUCT_STOCK = #{productStock}
+        WHERE PRODUCT_ID = #{productId}
+    </update>
+
+    <insert id="insertProduct">
+        INSERT INTO PRODUCT(PRODUCT_NAME, PRODUCT_TYPE, PRODUCT_STOCK, PRODUCT_PRICE, PRODUCT_IMG)
+        VALUES(#{productName}, #{productType}, #{productStock}, #{productPrice}, #{productImg})
+    </insert>
+
+
+
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bio11.mapper.ReplyMapper">
+
+
+	<insert id="insert">
+		INSERT INTO REPLY(REPLY_ID ,REPLY, REPLYER, BOARD_ID) VALUES(REPLY_ID_SEQ.nextval, #{reply},#{replyer},#{boardId})
+	</insert>
+	
+<!-- 	public ReplyVO read(Long rno);
+	
+	public int delete(Long rno);
+	
+	public int update(ReplyVO reply); -->
+	
+	
+	<select id="read" resultType="com.bio11.member.dto.ReplyDTO">
+		SELECT * FROM REPLY WHERE REPLY_ID=#{replyId}
+	</select>
+	
+	<update id="update">
+		UPDATE REPLY SET reply=#{reply}, replyer=#{replyer}, BOARD_ID=#{boardId}, REPLY_UPDATE_DATE=sysdate WHERE REPLY_ID=#{replyId}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM REPLY WHERE REPLY_ID=#{replyId}
+	</delete>
+	
+	<select id="getListByBno" resultType="com.bio11.member.dto.ReplyDTO">
+		SELECT REPLY_ID, BOARD_ID, reply, replyer, REPLY_DATE, REPLY_UPDATE_DATE FROM REPLY
+		WHERE BOARD_ID=#{boardId}
+	</select>
+	
+	<delete id="deleteByBno">
+		DELETE FROM REPLY WHERE BOARD_ID=#{boardId}
+	</delete>
+	
+	
+	
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bio11.mapper.MemberMapper">
+
+	<insert id="insert">
+		INSERT INTO member VALUES(#{userId},#{userPwd},#{userName},#{userAddress},#{userBirth},#{userGender},#{userEmail},#{userPhone},sysdate)
+	</insert>
+	
+	<select id="read" resultType="com.bio11.member.dto.MemberDTO">
+		SELECT * FROM member WHERE user_id=#{userId}
+	</select>
+	
+	<update id="update">
+
+		UPDATE member SET user_pwd=#{userPwd}, user_name=#{userName}, user_address=#{userAddress},
+		 user_birth=#{userBirth}, user_gender=#{userGender}, user_email=#{userEmail}, user_phone=#{userPhone},
+		 user_regDate=sysdate WHERE user_id=#{userId}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM member WHERE user_id=#{userId}
+	</delete>
+
+	<select id="getUserIdByEmail" resultType="String">
+		SELECT * FROM member WHERE user_email=#{userEmail}
+	</select>
+<!-- 	<select id='getList' resultType="com.bio11.member.dto.MemberDTO">
+		SELECT * FROM member WHERE userId > 0
+	</select> -->
+
+ </mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bio11.mapper.AdminMemberMapper">
+
+    <select id="findAll" resultType="com.bio11.member.dto.MemberDTO">
+            SELECT * FROM MEMBER
+    </select>
+
+    <select id="findByUserId" resultType="com.bio11.member.dto.MemberDTO">
+        SELECT * FROM MEMBER WHERE USER_ID = #{userId}
+    </select>
+
+    <update id="updateMember">
+        UPDATE MEMBER
+        SET USER_NAME = #{userName},
+            USER_ADDRESS = #{userAddress},
+            USER_EMAIL = #{userEmail},
+            USER_PHONE = #{userPhone}
+        WHERE USER_ID = #{userId}
+    </update>
+
+    <delete id="deleteMember">
+        DELETE FROM MEMBER WHERE USER_ID = #{userId}
+    </delete>
+
+    <!--	<insert id="insert">-->
+    <!--		INSERT INTO TBL_ATTACH(UUID, uploadPath, FILENAME, FILETYPE, BNO)-->
+    <!--		VALUES(#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{bno})	&lt;!&ndash; #{} 이거는 java bean 을 활용하므로 대소문자 구분!! &ndash;&gt;-->
+    <!--	</insert>-->
+
+
+    <!--	<delete id="delete">-->
+    <!--		DELETE FROM TBL_ATTACH WHERE BNO = #{bno}-->
+    <!--	</delete>-->
+
+    <!--	<delete id="deleteAll">-->
+    <!--		DELETE FROM TBL_ATTACH WHERE BNO = #{bno}-->
+    <!--	</delete>-->
+
+    <!--	<select id="getOldFiles" resultType="com.bio11.domain.BoardAttachVO">-->
+    <!--		SELECT * FROM TBL_ATTACH WHERE UPLOADPATH = TO_CHAR(SYSDATE - 1, 'yyyy/mm/dd')-->
+    <!--	</select>-->
+
+
+</mapper>
