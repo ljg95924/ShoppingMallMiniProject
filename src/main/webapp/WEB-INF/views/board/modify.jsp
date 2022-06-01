@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@include file="../includes/header.jsp" %>
+<%@include file="../includes/memberheader.jsp" %>
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Board Read Page</h1>
@@ -19,24 +19,24 @@
 	                    <form role="form" action="/board/modify" method="post">
                         <div class="panel-body">
 							<div class="form group">
-								<label>Bno</label>
-								<input class="form-control" name="bno" 
-								value='<c:out value="${board.bno}"/>'  readonly="readonly">
-								<label>Title</label>
-								<input class="form-control" name="title" 
-								value='<c:out value="${board.title}"/>'  >
-								<label>Content</label>
-								<input class="form-control" name="content" 
-								value='<c:out value="${board.content}"/>'  >
-								<label>Writer</label>
-								<input class="form-control" name="writer" 
-								value='<c:out value="${board.writer}"/>'  > 
+								<label>boardId</label>
+								<input class="form-control" name="boardId"
+								value='<c:out value="${board.boardId}"/>'  readonly="readonly">
+								<label>boardTitle</label>
+								<input class="form-control" name="boardTitle"
+								value='<c:out value="${board.boardTitle}"/>'  >
+								<label>boardContent</label>
+								<input class="form-control" name="boardContent"
+								value='<c:out value="${board.boardContent}"/>'  >
+								<label>userId</label>
+								<input class="form-control" name="userId"
+								value='<c:out value="${board.userId}"/>'  readonly>
 								<label>RegDate</label>
 								<input class="form-control" name="regData" 
-								value='<fmt:formatDate value="${board.regDate}" pattern="yyyy-MM-dd"/>' readonly="readonly"  > 
+								value='<fmt:formatDate value="${board.boardRegDate}" pattern="yyyy-MM-dd"/>' readonly="readonly"  >
 								<label>UpdateDate</label>
 								<input class="form-control" name="updataData" 
-								value='<fmt:formatDate value="${board.updateDate}" pattern="yyyy-MM-dd"/>' readonly="readonly"  > 
+								value='<fmt:formatDate value="${board.boardUpdateDate}" pattern="yyyy-MM-dd"/>' readonly="readonly"  >
 							</div> 
                         </div><!-- /.panel-body -->
 						<div class="panel panel-info">
@@ -80,8 +80,8 @@
 		
 		
 		//게시물 조회 할 때 파일 관련 자료를 json으로 만들어서 회신 
-		var bno = '<c:out value="${board.bno}"/>';
-		$.getJSON("/board/getAttachList",{bno:bno}, 
+		var boardId = '<c:out value="${board.boardId}"/>';
+		$.getJSON("/board/getAttachList",{boardId:boardId},
 		function(arr){
 			console.log(arr);
 			showUploadedFile(arr);
@@ -94,6 +94,7 @@
 			console.log(operation);
 			if(operation === 'remove'){
 				formObj.attr("action","/board/remove");
+				formObj.submit();
 			}else if(operation === 'list') {
 				//move to list
 				self.location = "/board/list";
@@ -238,4 +239,4 @@
 		
 		
 </script>
- <%@include file="../includes/footer.jsp" %>       
+ <%@include file="../includes/memberfooter.jsp" %>

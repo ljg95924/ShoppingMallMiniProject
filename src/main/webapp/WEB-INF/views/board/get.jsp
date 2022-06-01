@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="../includes/header.jsp"%>
+<%@include file="../includes/memberheader.jsp"%>
 
 <script src="../../resources/js/reply.js"></script>
 <div class="row">
@@ -16,19 +16,19 @@
 			<div class="panel-body">
 				<!--조회 -->
 				<div class="form group">
-					<label>Bno</label> 
-					<input class="form-control" name="bno" value='<c:out value="${board.bno}"/>' readonly="readonly">
-					<label>Title</label> 
-					<input class="form-control" name="title" value='<c:out value="${board.title}"/>' readonly="readonly">
-					<label>Content</label> 
-					<input class="form-control" name="content" value='<c:out value="${board.content}"/>' readonly="readonly">
-					<label>Writer</label> 
-					<input class="form-control" name="writer" value='<c:out value="${board.writer}"/>' readonly="readonly">
+					<label>boardId</label>
+					<input class="form-control" name="boardId" value='<c:out value="${board.boardId}"/>' readonly="readonly">
+					<label>boardTitle</label>
+					<input class="form-control" name="boardTitle" value='<c:out value="${board.boardTitle}"/>' readonly="readonly">
+					<label>boardContent</label>
+					<input class="form-control" name="boardContent" value='<c:out value="${board.boardContent}"/>' readonly="readonly">
+					<label>userId</label>
+					<input class="form-control" name="userId" value='<c:out value="${board.userId}"/>' readonly="readonly">
 				</div>
 			</div>
 			<!-- /.panel-body -->
 			<button data-oper='modify' class='btn btn-default'
-				onclick="location.href='/board/modify?bno=<c:out value="${board.bno}"/>'">Modify</button>
+				onclick="location.href='/board/modify?boardId=<c:out value="${board.boardId}"/>'">Modify</button>
 			<button id="listBtn" type="button" data-oper="list"
 				class="btn btn-info">List</button>
 		</div>
@@ -40,15 +40,17 @@
 			</div>
 			<div class="panel-body">
 				<ul class="chat">
-					<li class="left clearfix" data-rno="12">
-						<div>
-							<div class="header">
-								<strong class="primary-font">user00</strong> <small
-									class="pull-right text-muted">2021-05-18 13:13</small>
+					<c:forEach var="data" items="${replyList}" >
+						<li class="left clearfix" data-rno="12">
+							<div>
+								<div class="header">
+									<strong class="primary-font">${data.reply}</strong>
+									<small class="pull-right text-muted">${data.replyDate}</small>
+								</div>
+								<p>${data.reply}</p>
 							</div>
-							<p>Good job</p>
-						</div>
-					</li>
+						</li>
+					</c:forEach>
 				</ul>
 			</div>
 		</div><!-- /.reply panel -->
@@ -57,8 +59,7 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						<h4 class="modal-title" id="myModalLabel">REPLY title</h4>
 					</div>
 					<div class="modal-body">
@@ -107,14 +108,14 @@
 		self.location = "/board/list";
 	});
 	
-	var bnoValue = '<c:out value="${board.bno}"/>';
+	var boardIdValue = '<c:out value="${board.boardId}"/>';
 
 	//댓글 목록의 이벤트 처리
 	var replyUL = $(".chat");
 	showList(1);
 	function showList(page){
 		replyService.getList(
-			{bno:bnoValue, page:page||1},
+			{boardId:boardIdValue, page:page||1},
 			function(list){
 				var str="";
 				if(list == null || list.length==0){
@@ -134,7 +135,7 @@
 	}//showList
 	
 	
-	//모달창 출
+	//모달창 출력
 	var modal = $(".modal");
 	var modalInputReply = modal.find("input[name='reply']");
 	var modalInputReplyer = modal.find("input[name='replyer']");
@@ -157,7 +158,7 @@
 		var reply={
 				reply:modalInputReply.val(),
 				replyer:modalInputReplyer.val(),
-				bno:bnoValue
+				boardId:boardIdValue
 		}; 
 		replyService.add(reply, function(result){
 			alert(result);//댓글 등록이 정상임을 팝업으로 알림
@@ -199,8 +200,8 @@
 	});
 	
 	//게시물 조회 할 때 파일 관련 자료를 json으로 만들어서 회신 
-	var bno = '<c:out value="${board.bno}"/>';
-	$.getJSON("/board/getAttachList",{bno:bno}, 
+	var boardId = '<c:out value="${board.boardId}"/>';
+	$.getJSON("/board/getAttachList",{boardId:boardId},
 	function(arr){
 		console.log(arr);
 		showUploadedFile(arr);
@@ -217,8 +218,8 @@
 			//1.이미지가 아닌 경우
 			var fileCallPath = encodeURIComponent(obj.uploadPath+"/"+obj.uuid+"_"+obj.fileName);
 			str += "<li><a href='/download?fileName="+fileCallPath+"'>"
-			+"<img src='/resources/images/attach.png'>"+obj.fileName+"</a>"
-			+"<span data-file=\'"+fileCallPath+"\'data-type='file'>x</span></div></li>";
+			+"<img src='/resources/images/attach.png'>"+obj.fileName+"</a>";
+			// +"<span data-file=\'"+fileCallPath+"\'data-type='file'>x</span></div></li>";
 		}else{
 			//2.이미지인 경우
 			//str +="<li>"+obj.fileName+"</li>";\
@@ -226,8 +227,8 @@
 			console.log("fileCallPath"+fileCallPath);
 			var originPath = obj.uploadPath + "/" + obj.uuid + "_" + obj.fileName;
 			originPath = originPath.replace(new RegExp(/\\/g),"/"); //폴더 구분자인 경우 "/"로 통일
-			str += "<li><a href=\"javascript:showImage(\'" + originPath + "\')\"><img src='/display?fileName=" + fileCallPath + "'></a>"
-					+"<span data-file=\'"+fileCallPath+"\'data-type='image'>x</span></div></li>";
+			str += "<li><a href=\"javascript:showImage(\'" + originPath + "\')\"><img src='/display?fileName=" + fileCallPath + "'></a>";
+					// +"<span data-file=\'"+fileCallPath+"\'data-type='image'>x</span></div></li>";
 			}
 		});
 		uploadResult.append(str);
@@ -262,7 +263,7 @@
 /* 	console.log(replyService);
 	
 	replyService.add(
-		{reply: "JS TEST", replyer:"js tester", bno:bnoValue }, //댓글 데이터
+		{reply: "JS TEST", replyer:"js tester", boardId:boardIdValue }, //댓글 데이터
 		function(result) {
 			alert("RESULT : " + result);
 		}
@@ -270,7 +271,7 @@
 	
 	
 /*  	replyService.getList(
-		{bno: bnoValue, page:1},
+		{boardId: boardIdValue, page:1},
 		function(list){
 			list.forEach(function(item){
 				console.log(item);
@@ -294,7 +295,7 @@
 	
 /* 	replyService.update({
 		rno:3,
-		bno:bnoValue,
+		boardId:boardIdValue,
 		reply:"modified reply...",
 		replyer:"modified repler..."
 		},
@@ -309,4 +310,4 @@
 </script>
 
 
-<%@include file="../includes/footer.jsp"%>
+<%@include file="../includes/memberfooter.jsp"%>

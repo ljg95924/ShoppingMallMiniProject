@@ -14,6 +14,9 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 @Log4j
 @RequestMapping("/admin/member/*")
@@ -23,9 +26,23 @@ public class AdminMemberController {
 	private AdminMemberService service;
 	
 	@GetMapping("/list")
-	public void list(Model model) {
+	public String list(Model model
+					    ,HttpServletRequest request
+						,RedirectAttributes ra) {
 		log.info("AdminController.list");
-		model.addAttribute("list", service.getMemberList());
+		HttpSession session = request.getSession();
+		session = request.getSession();
+		String adminId = (String) session.getAttribute("adminId");
+		if(adminId == null) {
+			log.info("session : adminId 없음!!");
+			ra.addFlashAttribute("result", "잘못된 접근 입니다.");
+			return "redirect:/product/list";
+		}else{
+			log.info("session : adminId 존재!!");
+			model.addAttribute("list", service.getMemberList());
+			return "admin/member/list";
+		}
+
 	}
 
 	@GetMapping("/modify")

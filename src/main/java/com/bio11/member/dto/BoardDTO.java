@@ -7,13 +7,14 @@ import lombok.Data;
 
 @Data
 public class BoardDTO {
-	private Long boardId;
+//	private Long bno;
 //	private String title;
 //	private String content;
 //	private String userId;
 //	private Date regDate;
 //	private Date updateDate;
 //	private List<BoardAttachDTO> attachList;
+	private Long boardId;
 	private String boardTitle;
 	private String boardContent;
 	private String userId;
