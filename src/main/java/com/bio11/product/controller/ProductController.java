@@ -29,10 +29,20 @@ public class ProductController {
 	@Autowired
 	private ProductService service;
 	
-	@GetMapping("/list")
+	/*@GetMapping("/list")
 	public void list(Model model) {
 		log.info("list");
 		model.addAttribute("list", service.getList());
+	}*/
+	@GetMapping("/list")
+	public void list(String productType, Model model) {
+		log.info("listProductType: " + productType);
+		if(productType.equals("all")){
+			model.addAttribute("list", service.getList());
+		}else{
+			model.addAttribute("list", service.getList(productType));
+
+		}
 	}
 	
 	@PostMapping("/modify")

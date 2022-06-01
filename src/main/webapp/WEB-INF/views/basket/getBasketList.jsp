@@ -11,6 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@include file="../includes/memberheader.jsp"%>
 	<div>
 		<h3 class="orderTitImg">
 			<img src="https://cdn1.bio11.kr/data/skin/crex_new_1/images/order/orderCart_TitImg.jpg" alt="장바구니 단계 이미지">
@@ -139,6 +140,7 @@
 			}
 		
 		});
+		<%@include file="../includes/memberfooter.jsp"%>
 	</script>
 </body>
 </html>

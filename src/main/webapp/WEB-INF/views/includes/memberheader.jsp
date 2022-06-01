@@ -289,10 +289,13 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 상품페이지<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">유산균</a>
+                                    <a href="/product/list?productType=all">전체보기</a>
                                 </li>
                                 <li>
-                                    <a href="#">영양제</a>
+                                    <a href="/product/list?productType=영양제">영양제</a>
+                                </li>
+                                <li>
+                                    <a href="/product/list?productType=유산균">유산균</a>
                                 </li>
                             </ul><!-- /.nav-second-level -->
                         </li>

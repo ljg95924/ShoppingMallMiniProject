@@ -10,7 +10,7 @@
     <title>Product Detail</title>
     <!-- <link rel="stylesheet" href="css/productDetail.css"> -->
     <style>
-        html, button, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+        html, button, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
             margin: 0;
             padding: 0;
             border: 0;
@@ -107,6 +107,7 @@
     </style>
 </head>
 <body>
+<%@include file="../includes/memberheader.jsp"%>
 <div class="pageNew_detail">
     <div class="pageNew_leftArea">
         <div class="pageNew_thum">
@@ -164,15 +165,15 @@
     </div>
 </div>
 
-<div class="goods_description" style="margin-top:30px">
+<div class="goods_description" style="margin-top:300px">
     <div class="goods_detail">
-        <div class="img" align="center">
-            <img src="https://bio11.speedgabia.com/desimone/product/emall/official/detail/DE_top_p.jpg" border="0">
-            <img src="https://bio11.speedgabia.com/desimone/product/emall/official/detail/DR_P.jpg" border="0">
+        <div class="imgPR" align="center">
+            <img src="https://bio11.speedgabia.com/desimone/product/emall/official/detail/DE_top_p.jpg" border="0" style="position:absolute">
             <img src="https://bio11.speedgabia.com/desimone/product/emall/official/detail/DR_P.jpg" border="0">
         </div>
     </div>
 </div>
+
 <script>
     $(document).ready(function () {
         let quantity = $(".quantity_input").val();
@@ -268,6 +269,7 @@
 
 
     });
+    <%@include file="../includes/memberfooter.jsp"%>
 </script>
 </body>
 </html>

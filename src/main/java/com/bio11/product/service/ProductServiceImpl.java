@@ -25,6 +25,12 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
+	public List<ProductDTO> getList(String productType) {
+		log.info("getList....");
+		return mapper.getListType(productType);
+	}
+
+	@Override
 	public boolean modify(ProductDTO product) {
 		// TODO Auto-generated method stub
 		log.info("modify..."+product);

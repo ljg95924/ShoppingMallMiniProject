@@ -21,6 +21,7 @@
     </style>
 </head>
 <body>
+<%@include file="../includes/memberheader.jsp"%>
     <div id="container">
         <h1>주문 완료!</h1>
     </div>
@@ -41,5 +42,6 @@
              </tr>
     </table>
     <a href="/product/list"> 메인으로 돌아가기 </a>
+<%@include file="../includes/memberfooter.jsp"%>
 </body>
 </html>

@@ -9,6 +9,7 @@ import java.util.List;
 public interface ProductMapper {
 	//@Select("select * from tbl_board where bno > 0")
 	public List<ProductDTO> getList();
+	public List<ProductDTO> getListType(String productType);
 	public int update(ProductDTO product);
 	public ProductDTO read(int productId);
 }
