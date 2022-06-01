@@ -17,5 +17,11 @@ public class OrderServiceImpl implements OrderService{
         return mapper.orderOne(order);
     }
 
+    @Override
+    public OrderDTO getOrderOne(int orderId) {
+        log.info("getOrder..");
+        return mapper.getOrderOne(orderId);
+    }
+
 
 }

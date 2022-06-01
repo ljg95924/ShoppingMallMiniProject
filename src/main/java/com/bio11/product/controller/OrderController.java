@@ -65,10 +65,6 @@ public class OrderController {
 		int result = orderService.orderOne(order);
 		log.info("result : " + result);
 		if(result == 1){
-//			rttr.addAttribute("order", order.toString());
-			log.info("오니?");
-//			model.addAttribute("order", order);
-			log.info("오니?????");
 			log.info("Controller - orderOne Result: " + order);
 			return new ResponseEntity<>(order.getOrderId(), HttpStatus.OK);
 		}
@@ -78,13 +74,10 @@ public class OrderController {
 	}
 
 	@GetMapping("/orderResult")
-	public void orderResult(@RequestParam("orderId") String orderId) {
+	public void orderResult(@RequestParam("orderId") String orderId, Model model) {
 		log.info("OrderController.get");
 		log.info("orderId : " + orderId);
-
-
-
-
+		model.addAttribute("order",orderService.getOrderOne(Integer.parseInt(orderId)));
 	}
 
 

@@ -222,8 +222,9 @@
         // 결제버튼 클릭시
         $(".btn_buy").on("click", function () {
             let quantity = $(".quantity_input").val();
-
-            if ('${product.productStock}' < quantity) {
+            if("${memberDto.userId}" === "") {
+                alert("로그인 후에 이용해주세요.");
+            } else if ('${product.productStock}' < quantity) {
                 alert("주문수량에 비해 해당 상품 재고가 부족합니다.");
             } else {
                 alert('test');

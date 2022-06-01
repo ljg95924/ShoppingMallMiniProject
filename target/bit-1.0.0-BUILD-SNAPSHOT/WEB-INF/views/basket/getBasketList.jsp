@@ -15,7 +15,7 @@
 		<h3 class="orderTitImg">
 			<img src="https://cdn1.bio11.kr/data/skin/crex_new_1/images/order/orderCart_TitImg.jpg" alt="장바구니 단계 이미지">
 		</h3>
-			<form name="cart_form" id="cart_form" method="post" target="actionFrame" action="order">
+			<%--<form name="cart_form" id="cart_form" method="post" target="actionFrame" action="order">--%>
 				<input type="hidden" name="cart_version" value="2">
 				<!-- 전체선택 및 선택삭제 ▽ -->
 				<div class="cartSelBtn">
@@ -53,7 +53,7 @@
 						</tr>
 	<!-- 상품이 있을 경우 ▽ -->
 	<c:forEach var="item" items="${basketInfo}">
-	<tr>
+	<tr class="cart_info_tr">
 		<td>
 			<input type="checkbox" name="cart_option_seq[]" value="1272796" goods_seq="237" price="158000" delivery_cost="0" class="cartChkBox" checked="checked">
 		</td>
@@ -64,17 +64,16 @@
 				</a>
 			</figure>
 		</td>
-		<td class="tdTit">
-			<p class="pTit">
+		<td class="tdPName">
+			<p class="pName">
 				${item.productName}
 			</p>
 		</td>
-		<td class="tdAmount">
-			<div class="tdNum" id="cart_option_ea_1272796">${item.productQuantity}</div>
-			<div><button type="button" class="btn_ea_modify" id="1272796">변경</button></div>
+		<td class="tdPQuantity">
+			<div class="pQuantity">${item.productQuantity}</div>
 		</td>
 		<td>
-			<p class="pPrice cart_option_price_1272796">${item.productPrice}</p>
+			<p class="pPrice">${item.productPrice}</p>
 		</td>
 		<td>
 			<button type="button" value="1272796" class="btn_dirpurchase btn_one_buy">바로 구매</button>
@@ -84,49 +83,62 @@
 	</c:forEach>
 	<!-- 상품이 있을 경우 ▲ -->
 	</tbody></table>
-					<!-- 총 상품금액, 할인금액, 배송비 ▽ -->
+					<!-- 총 상품금액 ▽ -->
 					<div class="cartTotal">
 						<ul>
 							<li class="w345">
 								<p class="titP">총 상품금액</p>
-								<p class="priceP"><span class="total_goods_price"></span><span> 
-								<fmt:formatNumber value="${totalPrice}" pattern="###,###,###"/> 원
-								</span></p>
+								<p class="priceP"><span class="total_price">
+								<fmt:formatNumber value="${totalPrice}" pattern="###,###,###"/></span>
+									원
+								</p>
 							</li>
 						</ul>
 					</div>
-					<!-- 총 상품금액, 할인금액, 배송비 ▲ -->
-	
+					<!-- 총 상품금액 ▲ -->
+
 			</div>
 				<!-- 상품 정보 및 가격 ▲ -->
 	
 				<!-- 버튼 ▽ -->
+			<form action="/orderBasket/${member.memberId}" method="get" class="order_form">
 				<div class="cartBtn">
-					<button type="button" class="btn_selOrder btn_selected_order" onclick="gtag('event', '버튼클릭', {'event_category' : '주문하기', 'event_label' : '장바구니'});">선택 주문</button>
-					<button type="button" class="btn_totOrder btn_all_order" onclick="gtag('event', '버튼클릭', {'event_category' : '주문하기', 'event_label' : '장바구니'});">전체 주문</button>
+					<button type="button" class="btn_selOrder">선택 주문</button>
+					<button type="button" class="btn_totalOrder">전체 주문</button>
 				</div>
-				<!-- 버튼 ▲ -->
 			</form>
+				<!-- 버튼 ▲ -->
+			<%--</form>--%>
 	</div>
 	
 	<script>
 		$(document).ready(function(){
 			
 		});
-		
+		$(".btn_totalOrder").on("click", function(){
+			let form_contents = '';
+			let orderNumber = 0;
+			$(".cart_info_tr").each(function(index, element){
+				let total_price = $(element).find(".total_price").val();
+			});
+			$("")
+		});
+
 		$(".btn_select_all").on("change",function(){
-			set
+			alert("btn_select_all");
+
 		})
 		$(".all_check_input").on("click", function(){
-
-		/* 체크박스 체크/해제 */
-		if($(".all_check_input").prop("checked")){
-			$(".all_check_input").attr("checked", true);
-		} else{
-			$(".all_check_input").attr("checked", false);
-		}
+			alert("all_check_input");
+			/* 체크박스 체크/해제 */
+			if($(".all_check_input").prop("checked")){
+				alert("all_check_input_cehck");
+				$(".all_check_input").attr("checked", true);
+			} else{
+				$(".all_check_input").attr("checked", false);
+			}
 		
-	});
+		});
 	</script>
 </body>
 </html>

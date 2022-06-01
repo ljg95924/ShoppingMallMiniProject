@@ -4,9 +4,14 @@
 	<insert id="orderOne">
 		INSERT INTO orders(user_id, order_name, order_time)
 		VALUES(#{userId}, #{orderName}, SYSDATE)
-
+		<selectKey keyProperty="orderId" order="AFTER" resultType="int">
+			SELECT ORDER_ID_SEQ.currval FROM DUAL
+		</selectKey>
 	</insert>
 
+	<select id="getOrderOne" resultType="com.bio11.product.dto.OrderDTO">
+		SELECT * FROM orders WHERE order_id = #{orderId}
+	</select>
 <!--
 	<select id="getBasket" resultType="com.bio11.product.dto.BasketDTO">
 		select a.cart_Id, a.user_id, a.product_id, a.product_quantity, b.product_name, b.product_price

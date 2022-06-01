@@ -6,5 +6,7 @@ import com.bio11.product.dto.OrderDTO;
 
 public interface OrderMapper {
 	public int orderOne(OrderDTO order);
-	public List<OrderDTO> getOrder(String memberId);
+	public List<OrderDTO> getOrderList(String memberId);
+	public OrderDTO getOrderOne(int orderId);
+
 }
