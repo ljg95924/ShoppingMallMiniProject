@@ -262,8 +262,14 @@
                         <li><a href="/member/update"><i class="fa fa-gear fa-fw"></i> User Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="/member/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
+                        <c:choose>
+                            <c:when test="${isLogOn}">
+                                <li><a href="/member/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a href="/member/login"><i class="fa fa-sign-out fa-fw"></i> Login</a></li>
+                            </c:otherwise>
+                        </c:choose>
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
