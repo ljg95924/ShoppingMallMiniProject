@@ -5,7 +5,10 @@
 	<select id="getList" resultType="com.bio11.product.dto.ProductDTO">
 		SELECT * FROM PRODUCT WHERE PRODUCT_ID > 0
 	</select>
-	
+
+	<select id="getListType" resultType="com.bio11.product.dto.ProductDTO">
+		SELECT * FROM  PRODUCT WHERE PRODUCT_ID > 0 AND PRODUCT_TYPE =#{productType}
+	</select>
 <!--	<update id="update">-->
 <!--		update PRODUCT-->
 <!--		set title=#{title},-->
