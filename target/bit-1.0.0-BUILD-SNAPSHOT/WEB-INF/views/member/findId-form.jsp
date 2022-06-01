@@ -3,8 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+<!--로그인 세션이 있으면 안내 페이지로 이동 -->
+<c:if test="${isLogOn}">
+    <c:redirect url = "/member/sessioninfo" />
+</c:if>
+<%@include file="../includes/memberheader.jsp"%>
 
-<head>
+
+
+
+
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,7 +48,6 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-</head>
 
 <body>
 
@@ -118,3 +125,7 @@
 		checkModal(result);
 	});
 </script>
+
+
+
+<%@include file="../includes/memberfooter.jsp"%>

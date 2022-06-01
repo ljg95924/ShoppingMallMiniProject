@@ -23,7 +23,7 @@
 	</update>
 	
 	<delete id="delete">
-		DELETE FROM REPLY WHERE REPLY_ID=#{replyId}
+		DELETE FROM REPLY WHERE BOARD_ID=#{boardId}
 	</delete>
 	
 	<select id="getListByBno" resultType="com.bio11.member.dto.ReplyDTO">

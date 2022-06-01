@@ -3,7 +3,7 @@
 <mapper namespace="com.bio11.mapper.BoardAttachMapper">
 
 	<insert id="insert">
-		INSERT INTO FILES VALUES(#{uuid},#{uploadPath},#{fileName},#{fileType},#{boardId})
+		INSERT INTO FILES VALUES(#{uuid},#{boardId},#{uploadPath},#{fileName},#{fileType})
 	</insert>
 	
 	

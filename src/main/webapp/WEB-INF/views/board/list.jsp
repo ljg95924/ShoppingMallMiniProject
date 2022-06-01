@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@include file="../includes/header.jsp" %>
+<%@include file="../includes/memberheader.jsp" %>
 
             <div class="row">
                 <div class="col-lg-12">
@@ -16,7 +16,8 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             게시글 목록
-                            <button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>
+<%--                            <button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>--%>
+                                <a href="/board/register" id='regBtn' class="btn btn-xs pull-right">글쓰기</a>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -59,9 +60,10 @@
                         					</select>
                         					<input type="text" class="form-control" name='keyword' value='<c:out value="${criteria.keyword}"/>'>
 					                    	<span class="input-group-btn">
-					                    		<button class="btn btn-info" type="button" value="Serach"></button>
+					                    		<button class="btn btn-info" type="button" value="search">search</button>
 					                    	</span>
                         				</form>
+                                        <button class="btn btn-success" onClick="location.href='list'">All Search</button>
                         			</div>
                         		</div>
 
@@ -89,24 +91,37 @@
             
             
 <script type="text/javascript">
-	$(document).ready(() => {
-		let result = '<c:out value="${result}"/>';
-		//모달 보여주기 추가
-		const checkModal = (result) => {
-			if(result===""){
-				return;
-			}
-			if(parseInt(result)>0){
-				$(".modal-body").html("게시글" + parseInt(result) + "번이 등록되었습니다.");
-			}
-			$("#myModal").modal("show");
-		}
+    $(document).ready(() => {
+        let result = '<c:out value="${result}"/>';
+        //모달 보여주기 추가
+        const checkModal = (result) => {
+            if(result===""){
+                return;
+            }else if(parseInt(result)>0){
+                $(".modal-body").html("게시글" + parseInt(result) + "번이 등록되었습니다.");
+            }
+            $("#myModal").modal("show");
+        }
+        checkModal(result);
 
-		checkModal(result);
-	});
-	$("#regBtn").on("click",() => {
-		self.location = "/board/register";
-	});
+        let noLogin = '<c:out value="${noLogin}"/>';
+        //모달 보여주기2 추가
+        const checkModal2 = (noLogin) => {
+            if(noLogin===""){
+                return;
+            }else{
+                $(".modal-body").html(noLogin);
+            }
+            $("#myModal").modal("show");
+        }
+        checkModal2(noLogin);
+
+
+    });//end document.ready
+
+	// $("#regBtn").on("click",() => {
+	// 	self.location = "/board/register";
+	// });
 	
 	
 	//검색이벤트 처리
@@ -125,4 +140,4 @@
 	})
 </script>        
  
- <%@include file="../includes/footer.jsp" %>       
+<%@include file="../includes/memberfooter.jsp" %>

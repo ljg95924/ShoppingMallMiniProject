@@ -4,7 +4,9 @@
 	<insert id="orderOne">
 		INSERT INTO orders(user_id, order_name, order_time)
 		VALUES(#{userId}, #{orderName}, SYSDATE)
-
+		<selectKey keyProperty="orderId" order="AFTER" resultType="int">
+			SELECT ORDER_ID_SEQ.currval FROM DUAL
+		</selectKey>
 	</insert>
 
 <!--

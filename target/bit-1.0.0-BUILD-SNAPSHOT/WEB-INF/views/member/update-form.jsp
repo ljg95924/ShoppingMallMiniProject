@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@include file="../includes/adminheader.jsp"%>
+<%@include file="../includes/memberheader.jsp"%>
+
 
 
 
@@ -125,14 +126,14 @@
 <script>	//유효성 체크
 
 /* 유효성 검사 통과유무 변수 */
-var idBool = false;           // 아이디
-var pwBool = false;           // 비번
-var pwckcorBool = false;      // 비번 확인 일치 확인
-var addressBool = false;        // 전화번호
-var nameBool = false;         // 이름
-var birthBool = false;        // 생년월일
-var emailBool = false;        // 이메일
-var phoneBool = false;        // 전화번호
+let idBool = false;           // 아이디
+let pwBool = false;           // 비번
+let pwckcorBool = false;      // 비번 확인 일치 확인
+let addressBool = false;        // 전화번호
+let nameBool = false;         // 이름
+let birthBool = false;        // 생년월일
+let emailBool = false;        // 이메일
+let phoneBool = false;        // 전화번호
 
 	$(document).ready(() => {
 		
@@ -389,16 +390,17 @@ var phoneBool = false;        // 전화번호
 	var formObj = $("form");
 	
 	function submitCheck(e) {
-		
-		idCheck();
+
+
+
 		pwCheck();
 		coCheck();
 		birth();
-		nameCheck();
+		addressCheck();
 		emailCheck();
 		phoneCheck();
 
-		if(idBool && pwBool && pwckcorBool && nameBool && addressBool && birthBool && emailBool && phoneBool){
+		if( pwBool && pwckcorBool && addressBool && birthBool && emailBool && phoneBool){
 			// alert("true")
 			formObj.submit();
 		}else{
@@ -437,4 +439,4 @@ var phoneBool = false;        // 전화번호
 
 
 
-<%@include file="../includes/footer.jsp"%>
+<%@include file="../includes/memberfooter.jsp"%>

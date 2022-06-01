@@ -68,8 +68,9 @@ public class MemberController {
 				session = request.getSession();
 				session.setAttribute("isLogOn", true);
 				session.setAttribute("adminId", memberDto.getUserId());
+				session.setAttribute("memberDto", memberDto);
 				ra.addFlashAttribute("result","관리자 로그인 성공!");
-				return "admin/member/list"; //관리자 메인페이지
+				return "redirect:/admin/member/list"; //관리자 메인페이지
 			};
 		};
 		
@@ -105,11 +106,16 @@ public class MemberController {
 		log.info("/join PostMapping 발생 ");
 		memberDto.setUserBirth(year+month+day);
 		log.info("memberDto : " + memberDto);
-		boolean check = memberService.register(memberDto);
-		if(check) {
+		String userId = memberService.getUserIdByEmail(memberDto.getUserEmail());
+		if(userId != null){
+			ra.addFlashAttribute("result", "회원가입 실패 : 중복이메일 입니다.");
+			return "redirect:/member/join";
+		}
+		boolean Check = memberService.register(memberDto);
+		if(Check) {
 			ra.addFlashAttribute("result", "회원가입 성공");
 			return "redirect:/member/login";
-		}else {
+		}else{
 			ra.addFlashAttribute("result", "회원가입 실패 : 중복아이디 입니다.");
 			return "redirect:/member/join";
 		}
@@ -120,6 +126,7 @@ public class MemberController {
 	public String memberUpdateForm(HttpServletRequest request,
 									Model model) {
 		log.info("/update GetMapping 발생 ");
+
 		HttpSession  session = request.getSession();
 		MemberDTO memberDto = (MemberDTO)session.getAttribute("memberDto");
 		log.info("MemberController_memberUpdateForm_memberDto : " + memberDto);
@@ -145,6 +152,19 @@ public class MemberController {
 							HttpServletRequest request,
 							RedirectAttributes ra) {
 		log.info("/update PostMapping 발생 ");
+
+		//이메일 중복 검사
+		//현재 접속중인 id와 수정할 email로 찾은 id가 다를 경우
+		String getDbId = memberService.getUserIdByEmail(memberDto.getUserEmail());
+		if(getDbId != null) {
+			if(!memberDto.getUserId().equals(getDbId)){
+				//입력한 email로 된 id가 이미 존재함
+				ra.addFlashAttribute("result", "회원가입 실패 : 중복이메일 입니다.");
+				return "redirect:/member/update";
+			}
+		}
+
+
 		memberDto.setUserBirth(year+month+day);
 		log.info("Update_memberDto : " + memberDto);
 		boolean check = memberService.modify(memberDto);
@@ -180,12 +200,17 @@ public class MemberController {
 	//회원정보수정 화면 요청
 	@GetMapping("/myPage")
 	public String myPageForm(HttpServletRequest request,
-									Model model) {
+									Model model,
+							 RedirectAttributes ra) {
 		log.info("/myPage GetMapping 발생 ");
-		HttpSession  session = request.getSession();
+		HttpSession session = request.getSession();
 		MemberDTO memberDto = (MemberDTO)session.getAttribute("memberDto");
-		model.addAttribute("memberDto", memberDto);
-		
+		log.info("myPage mapping memberDto:" + memberDto );
+
+		if(memberDto == null){
+			ra.addFlashAttribute("result", "로그인 후 이용해 주세요.");
+			return "redirect:/member/login";
+		}
 		return "/member/myPage-form";
 	}
 	
@@ -237,9 +262,41 @@ public class MemberController {
 			
 		}
 	}
-	
-	
 
+	@GetMapping("/sessioninfo")
+	public String sessionInfo(HttpServletRequest request,
+							  RedirectAttributes ra) {
+		log.info("/sessionInfo GetMapping 발생 ");
+
+		HttpSession session = request.getSession();
+		MemberDTO memberDto = (MemberDTO)session.getAttribute("memberDto");
+		log.info("sessioninfo mapping memberDto:" + memberDto );
+
+		if(memberDto == null){
+			ra.addFlashAttribute("result", "로그인 후 이용해 주세요.");
+			return "redirect:/member/login";
+		}
+		return "/member/sessionInfo-form";
+	}
+
+
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request,
+							  RedirectAttributes ra) {
+		log.info("/sessionInfo GetMapping 발생 ");
+
+		HttpSession session = request.getSession();
+		MemberDTO memberDto = (MemberDTO)session.getAttribute("memberDto");
+		log.info("sessioninfo mapping memberDto:" + memberDto );
+
+		if(memberDto == null){
+			ra.addFlashAttribute("result", "로그인 후 이용해 주세요.");
+		}else{
+			session.invalidate();
+			ra.addFlashAttribute("result", "로그아웃 완료.");
+		}
+		return "redirect:/member/login";
+	}
 	
 	
 	

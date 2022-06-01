@@ -7,6 +7,7 @@ import java.util.List;
 import com.bio11.mapper.BoardAttachMapper;
 import com.bio11.mapper.BoardMapper;
 import com.bio11.mapper.ReplyMapper;
+import com.bio11.member.dto.ReplyDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -104,8 +105,14 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public List<FilesDTO> getAttachList(Long boardId) {
-		log.info("get Attach list by bno" + boardId);
+		log.info("get Attach list by boardId" + boardId);
 		return attachMapper.findByBno(boardId);
 	}
-	
+
+	@Override
+	public List<ReplyDTO> getReplyList(Long boardId) {
+		log.info("get reply list by boardId");
+		return replyMapper.getListByBno(boardId);
+	}
+
 }

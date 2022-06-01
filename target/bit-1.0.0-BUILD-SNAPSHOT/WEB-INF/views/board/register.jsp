@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@include file="../includes/header.jsp" %>
+<%@include file="../includes/memberheader.jsp" %>
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Board Register</h1>
@@ -25,7 +25,7 @@
                            			<label>Content</label><input class="form-control" name="boardContent" rows="3">
                            		</div>
                         			<div class="form-group">
-                           			<label>Writer</label><input class="form-control" name="userId">
+                           			<label>UserId</label><input class="form-control" name="userId" value="${memberDto.userId}" readonly>
                            		</div>
                            		<button type="submit" class = "btn btn-default">Submit</button>
                            		<button type="reset" class = "btn btn-default">Reset</button>
@@ -207,4 +207,4 @@
 	
 	
             
- <%@include file="../includes/footer.jsp" %>       
+ <%@include file="../includes/memberfooter.jsp" %>

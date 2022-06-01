@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import com.bio11.member.dto.MemberDTO;
 import com.bio11.member.sevice.BoardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,6 +26,9 @@ import com.bio11.member.dto.Criteria;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 @Log4j
 @RequestMapping("/board/*")
@@ -34,7 +38,20 @@ public class BoardController {
 
 	
 	@GetMapping("/register")
-	public void register() {
+	public String register(HttpServletRequest request
+							, RedirectAttributes ra) {
+		log.info("register getMapping 요청 들어옴");
+		HttpSession session = request.getSession();
+		session = request.getSession();
+		MemberDTO memberDto = (MemberDTO) session.getAttribute("memberDto");
+		if(memberDto != null){
+			return "board/register";
+		}else{
+			log.info("로그인 안된 상태로 게시판 글쓰기 접근");
+			ra.addFlashAttribute("noLogin", "로그인 후 이용해 주세요");
+			return "redirect:/board/list";
+		}
+
 	}
 	
 	@PostMapping("/register")
@@ -56,10 +73,18 @@ public class BoardController {
 		log.info("count : >>>>>>>>>>" + service.getTotal(cri));
 	}
 	
-	@GetMapping({"/get", "/modify"})
+	@GetMapping("/get")
 	public void get(@RequestParam("boardId") Long boardId, Model model) {
-		log.info("/get or /modify");
+		log.info("/get");
 		model.addAttribute("board", service.get(boardId));
+		model.addAttribute("replyList", service.getReplyList(boardId));
+	}
+
+	@GetMapping( "/modify")
+	public void modify(@RequestParam("boardId") Long boardId, Model model) {
+		log.info("/modify");
+		model.addAttribute("board", service.get(boardId));
+		model.addAttribute("replyList", service.getReplyList(boardId));
 	}
 	
 	@PostMapping("/modify")
@@ -76,7 +101,7 @@ public class BoardController {
 	
 	@PostMapping("/remove")
 	public String remove(@RequestParam("boardId")Long boardId, RedirectAttributes rttr) {
-		log.info("remove...." + boardId);
+		log.info("remove....postMapping 요청됨" + boardId);
 		List<FilesDTO> attachList = service.getAttachList(boardId);
 		if(service.remove(boardId)) {
 			deleteFiles(attachList);
