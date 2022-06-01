@@ -9,7 +9,7 @@
 		float: left;
 	}
 </style>
-
+<%@include file="../includes/memberheader.jsp"%>
 	<div class="row">
 	    <div class="col-lg-12">
 	        <h1 class="page-header">List Page</h1>
@@ -24,10 +24,9 @@
 	            <div class="panel-heading">
 	                <%-- <a href="/basket/getBasketList/${member.user_id}"> --%>
 	                <%-- 로그인 부분 합치면 수정!! --%>
-	                <a href="../basket/getBasketList/${memberDto.userId}">
-	                	나의 장바구니
-	                </a>
-	                <button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>
+						<a href="../basket/getBasketList/${memberDto.userId}" onclick="return moveBasket();">
+							나의 장바구니
+						</a>
 	            </div>
 	            <!-- /.panel-heading --> 
 	            <div class="panel-body">
@@ -88,6 +87,13 @@
 	<!-- /.row -->
 
 	<script type="text/javascript">
+		function moveBasket(){
+			if("${memberDto.userId}" === ""){
+				alert("로그인 후 이용해주세요.");
+				return false;
+			}
+
+		}
 		$(document).ready(function(){
 			var result= '<c:out value="${result}"/>';
 
@@ -106,4 +112,5 @@
 		// 	self.location = "/board/register";
 		// });
 	</script>
- <%-- <%@include file="../includes/footer.jsp" %>   --%>    
+ <%-- <%@include file="../includes/footer.jsp" %>   --%>
+<%@include file="../includes/memberfooter.jsp"%>
