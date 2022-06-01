@@ -124,11 +124,19 @@ public class MemberController {
 	//회원정보수정 화면 요청
 	@GetMapping("/update")
 	public String memberUpdateForm(HttpServletRequest request,
-									Model model) {
+									Model model,
+								   RedirectAttributes ra
+								   ) {
 		log.info("/update GetMapping 발생 ");
 
 		HttpSession  session = request.getSession();
 		MemberDTO memberDto = (MemberDTO)session.getAttribute("memberDto");
+
+		if(memberDto == null){
+			ra.addFlashAttribute("result", "로그인 후 이용해 주세요.");
+			return "redirect:/member/login";
+		}
+
 		log.info("MemberController_memberUpdateForm_memberDto : " + memberDto);
 		String year = memberDto.getUserBirth().substring(0,4);
 		String month = memberDto.getUserBirth().substring(4,6);
