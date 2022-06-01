@@ -7,6 +7,7 @@
 <c:if test="${isLogOn}">
     <c:redirect url = "/member/sessioninfo" />
 </c:if>
+
 <%@include file="../includes/memberheader.jsp"%>
 
 
@@ -28,9 +29,9 @@
                                     <input class="form-control" placeholder="Password" name="userPwd" type="password">
                                 </div>
                                 <div class="checkbox">
-                                    <label>
-                                        <input name="rememberId" type="checkbox" value="rememberId">Remember ID
-                                    </label>
+<%--                                    <label>--%>
+<%--                                        <input name="rememberId" type="checkbox" value="rememberId">Remember ID--%>
+<%--                                    </label>--%>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <input type="submit" value="Login" size="20" class="btn btn-lg btn-success btn-block">

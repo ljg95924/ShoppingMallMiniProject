@@ -41,8 +41,7 @@ public class MemberController {
 	public String login(@RequestParam("userId") String id
 						, @RequestParam("userPwd") String pw
 						, RedirectAttributes ra
-						, HttpServletRequest request
-						, HttpServletResponse response) {
+						, HttpServletRequest request) {
 		
 		//로그 확인
 		log.info("/login : POST요청 발생!");
