@@ -58,12 +58,14 @@
                         						<option value="TW"<c:out value="${criteria.type eq'TW'?'selected':''}"/>>제목 or 작성자</option>
                         						<option value="TCR"<c:out value="${criteria.type eq'TCR'?'selected':''}"/>>제목 or 내용 or 작성</option>
                         					</select>
-                        					<input type="text" class="form-control" name='keyword' value='<c:out value="${criteria.keyword}"/>'>
-					                    	<span class="input-group-btn">
-					                    		<button class="btn btn-info" type="button" value="search">search</button>
+                        					<input type="text" class="form-control" name='keyword' value='<c:out value="${criteria.keyword}"/>'><br>
+					                    	<span class="input-group-btn"  style="float: left">
+					                    		<button class="btn btn-info" type="button" value="search" >search</button>
 					                    	</span>
                         				</form>
-                                        <button class="btn btn-success" onClick="location.href='list'">All Search</button>
+                                            <div style="float: right" >
+                                                <button class="btn btn-success" onClick="location.href='list'" >All Search</button>
+                                            </div>
                         			</div>
                         		</div>
 

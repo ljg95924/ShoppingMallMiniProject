@@ -23,7 +23,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">회원가입</div>
 			<!-- /.panel-heading -->
-			<div class="panel-body">
+			<div class="panel-body" style="margin-left: 20px">
 				<form  role="form" action="<c:url value='/member/join'/>" method="post">
 					<div id="wrap">
 						<div id="content">
@@ -424,8 +424,6 @@ var phoneBool = false;        // 전화번호
         var age = monthDay < birthdaymd ? year - birthdayy - 1 : year - birthdayy;
         return age;
     }
-    
-
 
 </script>
 
