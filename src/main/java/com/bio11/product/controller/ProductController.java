@@ -34,6 +34,7 @@ public class ProductController {
 		log.info("list");
 		model.addAttribute("list", service.getList());
 	}*/
+	// list?productType=all
 	@GetMapping("/list")
 	public void list(String productType, Model model) {
 		log.info("listProductType: " + productType);

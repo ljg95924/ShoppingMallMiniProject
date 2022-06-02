@@ -34,7 +34,7 @@ public class BasketServiceImpl implements BasketService{
 	@Override
 	public int deleteBasket(int cartId) {
 		// TODO Auto-generated method stub
-		return 0;
+		return mapper.deleteBasket(cartId);
 	}
 
 	@Override

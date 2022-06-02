@@ -269,7 +269,7 @@
 
 
     });
-    <%@include file="../includes/memberfooter.jsp"%>
 </script>
+    <%@include file="../includes/memberfooter.jsp"%>
 </body>
 </html>

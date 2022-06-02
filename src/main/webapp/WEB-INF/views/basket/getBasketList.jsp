@@ -3,13 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="css/getBasketList.css" />
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+
 <body>
 <%@include file="../includes/memberheader.jsp"%>
 	<div>
@@ -37,7 +31,6 @@
 				<div class="cartInfo">
 					<table>
 						<colgroup>
-							<col style="width:65px">
 							<col style="width:75px">
 							<col style="width:410px">
 							<col style="width:161px">
@@ -45,7 +38,6 @@
 							<col style="width:105px">
 						</colgroup>
 						<tbody><tr>
-							<th>선택</th>
 							<th></th>
 							<th>상품명/옵션선택</th>
 							<th>수량</th>
@@ -55,13 +47,10 @@
 	<!-- 상품이 있을 경우 ▽ -->
 	<c:forEach var="item" items="${basketInfo}">
 	<tr class="cart_info_tr">
-		<td>
-			<input type="checkbox" name="cart_option_seq[]" value="1272796" goods_seq="237" price="158000" delivery_cost="0" class="cartChkBox" checked="checked">
-		</td>
 		<td class="tdImg">
 			<figure>
-				<a href="../goods/view?no=237">
-					<img src="https://cdn1.bio11.kr/data/goods/202205/31172731list2.png" style="width:100%;height:100%">
+				<a href="/product/productDetail?productId=${item.productId}">
+					<img src="/admin/product/display?fileName=${item.productImg}" style="width:100%;height:100%">
 				</a>
 			</figure>
 		</td>
@@ -77,13 +66,14 @@
 			<p class="pPrice">${item.productPrice}</p>
 		</td>
 		<td>
-			<button type="button" value="1272796" class="btn_dirpurchase btn_one_buy">바로 구매</button>
-			<button type="button" value="1272796" goods_seq="237" class="btn_one_del btn_dirDelete">삭제</button>
+			<button type="button" class="btn_dirpurchase btn_one_buy">바로 구매</button>
+			<button type="button" class="delete_btn" data-cartid="${item.cartId}">삭제</button>
 		</td>
 	</tr>
 	</c:forEach>
 	<!-- 상품이 있을 경우 ▲ -->
-	</tbody></table>
+	</tbody>
+					</table>
 					<!-- 총 상품금액 ▽ -->
 					<div class="cartTotal">
 						<ul>
@@ -100,21 +90,25 @@
 
 			</div>
 				<!-- 상품 정보 및 가격 ▲ -->
-	
+
 				<!-- 버튼 ▽ -->
-			<form action="/orderBasket/${member.memberId}" method="get" class="order_form">
+	<%--		<form action="/orderBasket/${member.memberId}" method="get" class="order_form">
 				<div class="cartBtn">
 					<button type="button" class="btn_selOrder">선택 주문</button>
 					<button type="button" class="btn_totalOrder">전체 주문</button>
 				</div>
+			</form>--%>
+			<!-- 삭제 form -->
+			<form action="/basket/delete" method="post" class="quantity_delete_form">
+				<input type="hidden" name="cartId" class="delete_cartId">
 			</form>
 				<!-- 버튼 ▲ -->
 			<%--</form>--%>
 	</div>
-	
+
 	<script>
 		$(document).ready(function(){
-			
+
 		});
 		$(".btn_totalOrder").on("click", function(){
 			let form_contents = '';
@@ -138,9 +132,18 @@
 			} else{
 				$(".all_check_input").attr("checked", false);
 			}
-		
+
 		});
-		<%@include file="../includes/memberfooter.jsp"%>
+		/* 장바구니 삭제 버튼 */
+		$(".delete_btn").on("click", function(e){
+			alert("삭제가 완료되었습니다.");
+			e.preventDefault();
+			const cartId = $(this).data("cartid");
+			$(".delete_cartId").val(cartId);
+			$(".quantity_delete_form").submit();
+
+		});
 	</script>
+		<%@include file="../includes/memberfooter.jsp"%>
 </body>
 </html>

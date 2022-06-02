@@ -52,7 +52,23 @@ public class BasketController {
 		model.addAttribute("basketInfo",basketList);
 		return "basket/getBasketList";
 	}
-	
+	@PostMapping("/update")
+	public String updateBasket(BasketDTO basket){
+		log.info("updateBasket: " + basket);
+		service.modifyCount(basket);
+		return "redirect:/basket/getBasketList/"+basket.getUserId();
+	}
+
+	@PostMapping("/delete")
+	public String deleteBasket(BasketDTO basket, HttpServletRequest request){
+		HttpSession session = request.getSession();
+		MemberDTO member = (MemberDTO) session.getAttribute("memberDto");
+		basket.setUserId(member.getUserId());
+		log.info("deleteBasket: " + basket);
+		service.deleteBasket(basket.getCartId());
+		return "redirect:/basket/getBasketList/"+basket.getUserId();
+	}
+
 	public int addProductPrice(List<BasketDTO> basketList) {
 		int totalPrice = 0;
 		for (BasketDTO basket : basketList) {
