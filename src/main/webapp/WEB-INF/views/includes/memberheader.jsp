@@ -57,7 +57,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/product/list">Bio11</a>
+                <a class="navbar-brand" href="/product/list?productType=all">Bio11</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -296,12 +296,13 @@
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="/product/list?productType=all">전체보기</a>
+
                                 </li>
                                 <li>
-                                    <a href="/product/list?productType=영양제">영양제</a>
+                                    <a href="/product/list?productType=영양제" >영양제</a>
                                 </li>
                                 <li>
-                                    <a href="/product/list?productType=유산균">유산균</a>
+                                    <a href="/product/list?productType=유산균" >유산균</a>
                                 </li>
                             </ul><!-- /.nav-second-level -->
                         </li>
