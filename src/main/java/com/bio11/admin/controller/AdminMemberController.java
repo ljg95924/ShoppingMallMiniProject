@@ -36,11 +36,11 @@ public class AdminMemberController {
 		if(adminId == null) {
 			log.info("session : adminId 없음!!");
 			ra.addFlashAttribute("result", "잘못된 접근 입니다.");
-			return "redirect:/product/list";
+			return "redirect:/product/list?productType=all";
 		}else{
 			log.info("session : adminId 존재!!");
 			model.addAttribute("list", service.getMemberList());
-			return "admin/member/list";
+			return "/admin/member/list";
 		}
 
 	}
