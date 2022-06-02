@@ -47,7 +47,7 @@ public class AdminProductController {
 		}else{
 			model.addAttribute("list", service.getProductList());
 			log.info("session : adminId 존재!!");
-			return "list";
+			return "/admin/product/list";
 		}
 
     }
