@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+         pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <title>Product Detail</title>
     <!-- <link rel="stylesheet" href="css/productDetail.css"> -->
+<%@include file="../includes/memberheader.jsp"%>
     <style>
         html, button, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
             margin: 0;
@@ -20,10 +21,6 @@
             letter-spacing: -0.5px;
         }
 
-        ul li {
-            list-style-type: none;
-            float: left;
-        }
 
         .pageNew_rightArea {
             position: absolute;
@@ -107,12 +104,11 @@
     </style>
 </head>
 <body>
-<%@include file="../includes/memberheader.jsp"%>
 <div class="pageNew_detail">
     <div class="pageNew_leftArea">
         <div class="pageNew_thum">
             <div class="mainImage">
-                <img src="/admin/product/display?fileName=${product.productImg}" alt="이미지"/>
+                <img src="/product/display?fileName=${product.productImg}" alt="이미지"/>
             </div>
         </div>
     </div>
@@ -228,11 +224,9 @@
             } else if ('${product.productStock}' < quantity) {
                 alert("주문수량에 비해 해당 상품 재고가 부족합니다.");
             } else {
-                alert('test');
                 form.productQuantity = quantity
                 form.productId = ${product.productId};
 
-				// {userId: '', productId: 6, productQuantity: '1'}
 				console.log(typeof form);
 
                 $.ajax({
@@ -241,7 +235,6 @@
                     data: form,
                     dataType: 'text',
                     success: function (orderId) {
-                        alert('성공');
                         console.log(orderId);
                         alert(orderId);
                         location.href = '/order/orderResult?orderId=' + orderId;

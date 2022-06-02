@@ -12,6 +12,18 @@
 	<select id="getOrderOne" resultType="com.bio11.product.dto.OrderDTO">
 		SELECT * FROM orders WHERE order_id = #{orderId}
 	</select>
+
+	<insert id="orderBasket">
+		INSERT INTO orders(user_id, order_name, order_time)
+		VALUES(#{userId}, (SELECT user_name FROM member WHERE user_id ='${userId}'), SYSDATE)
+		<selectKey keyProperty="orderId" order="AFTER" resultType="int">
+			SELECT ORDER_ID_SEQ.currval FROM DUAL
+		</selectKey>
+	</insert>
+	<insert id="insertOrderDetail">
+		INSERT INTO order_Detail(ORDER_ID, PRODUCT_ID, ORDER_PRODUCT_PRICE, ORDER_PRODUCT_QUANTITY, ORDER_PRODUCT_NAME)
+		VALUES(#{orderId}, #{productId},#{productPrice}, #{productQuantity}, #{productName})
+	</insert>
 <!--
 	<select id="getBasket" resultType="com.bio11.product.dto.BasketDTO">
 		select a.cart_Id, a.user_id, a.product_id, a.product_quantity, b.product_name, b.product_price

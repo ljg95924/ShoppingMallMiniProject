@@ -1,9 +1,9 @@
 package com.bio11.product.controller;
 
 import com.bio11.member.dto.MemberDTO;
-import com.bio11.member.sevice.MemberService;
 import com.bio11.product.dto.OrderDTO;
-import com.bio11.product.dto.ProductDTO;
+import com.bio11.product.dto.OrderDetailDTO;
+import com.bio11.product.dto.OrderDetailDTOList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,7 +16,6 @@ import com.bio11.product.service.OrderService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -60,8 +59,7 @@ public class OrderController {
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute("memberDto");
 		order.setUserId(member.getUserId());
-		order.setOrderName(member.getUserName());
-
+		order.setUserName(member.getUserName());
 		int result = orderService.orderOne(order);
 		log.info("result : " + result);
 		if(result == 1){
@@ -80,5 +78,14 @@ public class OrderController {
 		model.addAttribute("order",orderService.getOrderOne(Integer.parseInt(orderId)));
 	}
 
+	@PostMapping("/orderBasket")
+	public void orderBasket(OrderDetailDTOList list, Model model,HttpServletRequest request){
+		log.info("orderBasket: " + list);
+		HttpSession session = request.getSession();
+		MemberDTO member = (MemberDTO) session.getAttribute("memberDto");
+
+
+		orderService.orderBasket(list, member.getUserId());
+	}
 
 }

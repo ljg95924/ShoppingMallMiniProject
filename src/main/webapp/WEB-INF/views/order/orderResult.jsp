@@ -5,19 +5,14 @@
   Time: 오전 11:38
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
     <title>구매 완료 페이지</title>
     <style>
         p { font-size: 25px; color: black }
-        div, th, tr { text-align: center; font-size: 20px; }
-        a {
-            position: absolute;
-            right: 200px;
-            font-size: 30px;
-        }
     </style>
 </head>
 <body>
@@ -41,7 +36,7 @@
                  </td>
              </tr>
     </table>
-    <a href="/product/list"> 메인으로 돌아가기 </a>
+    <a href="/product/list?productType=all"> 메인으로 돌아가기 </a>
 <%@include file="../includes/memberfooter.jsp"%>
 </body>
 </html>

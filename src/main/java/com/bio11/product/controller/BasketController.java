@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.bio11.member.dto.MemberDTO;
+import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,6 +51,7 @@ public class BasketController {
 		List<BasketDTO> basketList = service.getBasketList(userId);
 		model.addAttribute("totalPrice",addProductPrice(basketList));
 		model.addAttribute("basketInfo",basketList);
+		model.addAttribute("userId",userId);
 		return "basket/getBasketList";
 	}
 	@PostMapping("/update")
@@ -68,6 +70,7 @@ public class BasketController {
 		service.deleteBasket(basket.getCartId());
 		return "redirect:/basket/getBasketList/"+basket.getUserId();
 	}
+
 
 	public int addProductPrice(List<BasketDTO> basketList) {
 		int totalPrice = 0;
