@@ -2,6 +2,8 @@ package com.bio11.product.service;
 
 import java.util.List;
 
+import com.bio11.product.dto.OrderDetailDTO;
+import com.bio11.product.dto.OrderDetailDTOList;
 import org.springframework.stereotype.Service;
 
 import com.bio11.product.dto.BasketDTO;
@@ -13,48 +15,60 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Service
 @AllArgsConstructor
-public class BasketServiceImpl implements BasketService{
-	//@Autowired
-	private BasketMapper mapper;
-	@Override
-	public int addBasket(BasketDTO basket) {
-		// TODO Auto-generated method stub
-		log.info("addBasket: " + basket);
-		BasketDTO checkBasket = mapper.checkBasket(basket);
-		if(checkBasket != null) {
-			return 2;
-		}
-		try {
-			return mapper.addBasket(basket);
-		}catch(Exception e) {
-			return 0;			
-		}
-	}
+public class BasketServiceImpl implements BasketService {
+    //@Autowired
+    private BasketMapper mapper;
 
-	@Override
-	public int deleteBasket(int cartId) {
-		// TODO Auto-generated method stub
-		return mapper.deleteBasket(cartId);
-	}
+    @Override
+    public int addBasket(BasketDTO basket) {
+        // TODO Auto-generated method stub
+        log.info("addBasket: " + basket);
+        BasketDTO checkBasket = mapper.checkBasket(basket);
+        if (checkBasket != null) {
+            return 2;
+        }
+        try {
+            return mapper.addBasket(basket);
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 
-	@Override
-	public int modifyCount(BasketDTO basket) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int deleteBasket(int cartId) {
+        // TODO Auto-generated method stub
+        return mapper.deleteBasket(cartId);
+    }
 
-	@Override
-	public List<BasketDTO> getBasketList(String userId) {
-		// TODO Auto-generated method stub
-		List<BasketDTO> basket = mapper.getBasket(userId);
-		
-		return basket;
-	}
+    @Override
+    public int modifyCount(BasketDTO basket) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public BasketDTO checkBasket(BasketDTO basket) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<BasketDTO> getBasketList(String userId) {
+        // TODO Auto-generated method stub
+        List<BasketDTO> basket = mapper.getBasket(userId);
+
+        return basket;
+    }
+
+    @Override
+    public BasketDTO checkBasket(BasketDTO basket) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public int deleteBasketList(OrderDetailDTOList list) {
+        for (OrderDetailDTO orderDetailDto : list.getList()
+        ) {
+            if (mapper.deleteBasket(orderDetailDto.getCartId()) != 1){
+                return 0;
+            }
+        }
+        return 1;
+    }
 
 }

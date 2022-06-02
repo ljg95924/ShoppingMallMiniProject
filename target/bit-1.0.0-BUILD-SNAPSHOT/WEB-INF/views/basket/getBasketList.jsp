@@ -3,86 +3,79 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="css/getBasketList.css" />
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+
 <body>
+<%--<%@include file="../includes/memberheader.jsp"%>--%>
 	<div>
 		<h3 class="orderTitImg">
 			<img src="https://cdn1.bio11.kr/data/skin/crex_new_1/images/order/orderCart_TitImg.jpg" alt="장바구니 단계 이미지">
 		</h3>
 			<%--<form name="cart_form" id="cart_form" method="post" target="actionFrame" action="order">--%>
 				<input type="hidden" name="cart_version" value="2">
-				<!-- 전체선택 및 선택삭제 ▽ -->
-				<div class="cartSelBtn">
-					<ul>
-						<li>
-							<div class="cartCheckbox">
-								<input type="checkbox" name="allSelect" id="allSelect" class="btn_select_all" checked="checked"><label for="allSelect">전체선택</label>
-							</div>
-						</li>
-						<li>
-							<button type="button" class="btn_select_del">선택삭제</button>
-						</li>
-					</ul>
-				</div>
-				<!-- 전체선택 및 선택삭제 ▲ -->
+
 	
 				<!-- 상품 정보 및 가격 ▽ -->
 				<div class="cartInfo">
 					<table>
 						<colgroup>
-							<col style="width:65px">
 							<col style="width:75px">
 							<col style="width:410px">
 							<col style="width:161px">
-							<col>
+							<col style="width:131px">
 							<col style="width:105px">
 						</colgroup>
-						<tbody><tr>
-							<th>선택</th>
-							<th></th>
-							<th>상품명/옵션선택</th>
-							<th>수량</th>
-							<th>판매가격</th>
-							<th>구매선택</th>
-						</tr>
+							<tbody>
+							<tr>
+								<th></th>
+								<th>상품명/옵션선택</th>
+								<th>수량</th>
+								<th>판매가격</th>
+								<th>구매선택</th>
+							</tr>
 	<!-- 상품이 있을 경우 ▽ -->
-	<c:forEach var="item" items="${basketInfo}">
-	<tr class="cart_info_tr">
-		<td>
-			<input type="checkbox" name="cart_option_seq[]" value="1272796" goods_seq="237" price="158000" delivery_cost="0" class="cartChkBox" checked="checked">
-		</td>
-		<td class="tdImg">
-			<figure>
-				<a href="../goods/view?no=237">
-					<img src="https://cdn1.bio11.kr/data/goods/202205/31172731list2.png" style="width:100%;height:100%">
-				</a>
-			</figure>
-		</td>
-		<td class="tdPName">
-			<p class="pName">
-				${item.productName}
-			</p>
-		</td>
-		<td class="tdPQuantity">
-			<div class="pQuantity">${item.productQuantity}</div>
-		</td>
-		<td>
-			<p class="pPrice">${item.productPrice}</p>
-		</td>
-		<td>
-			<button type="button" value="1272796" class="btn_dirpurchase btn_one_buy">바로 구매</button>
-			<button type="button" value="1272796" goods_seq="237" class="btn_one_del btn_dirDelete">삭제</button>
-		</td>
-	</tr>
-	</c:forEach>
-	<!-- 상품이 있을 경우 ▲ -->
-	</tbody></table>
+							<form action="/order/orderBasket" method="post">
+
+								<c:forEach var="item" items="${basketInfo}" varStatus="status">
+									<tr class="cart_info_tr">
+										<input type="hidden" class="individual_productId_input" name="list[${status.index}].productId" value="${item.productId}">
+										<input type="hidden" class="individual_productId_input" name="list[${status.index}].cartId" value="${item.cartId}">
+										<%--<input type="hidden" class="individual_productId_input" name="list[${status.index}].cartId" value="${item.cartId}">--%>
+										<td class="tdImg">
+											<figure>
+												<a href="/product/productDetail?productId=${item.productId}">
+													<img src="/product/display?fileName=${item.productImg}" alt="이미지" style="width:100%; height:100%; " >
+												</a>
+											</figure>
+										</td>
+										<td class="tdPName">
+											<p class="pName">
+												<input type="hidden" class="individual_productName_input" name="list[${status.index}].orderProductName" value="${item.productName}">
+													${item.productName}
+											</p>
+										</td>
+										<td class="tdPQuantity">
+											<div class="pQuantity">
+												<input type="hidden" class="individual_productQuantity_input" name="list[${status.index}].orderProductQuantity" value="${item.productQuantity}">
+													${item.productQuantity}
+											</div>
+										</td>
+										<td>
+											<p class="pPrice">
+												<input type="hidden" class="individual_productPrice_input" name="list[${status.index}].orderProductPrice" value="${item.productPrice}">
+													${item.productPrice}
+											</p>
+										</td>
+										<td>
+											<button type="button" class="btn_one_buy">바로 구매</button>
+											<button type="button" class="delete_btn" data-cartid="${item.cartId}">삭제</button>
+										</td>
+									</tr>
+								</c:forEach>
+								<input type="submit" value="주문">
+							</form>
+							<!-- 상품이 있을 경우 ▲ -->
+						</tbody>
+					</table>
 					<!-- 총 상품금액 ▽ -->
 					<div class="cartTotal">
 						<ul>
@@ -95,25 +88,41 @@
 							</li>
 						</ul>
 					</div>
-					<!-- 총 상품금액 ▲ -->
-
-			</div>
+				</div>	<!-- 총 상품금액 ▲ -->\
 				<!-- 상품 정보 및 가격 ▲ -->
-	
+
+
+			<%--	<div class="content_btn_section">
+					<a class="order_btn">주문하기</a>
+				</div>--%>
 				<!-- 버튼 ▽ -->
-			<form action="/orderBasket/${member.memberId}" method="get" class="order_form">
+	<%--		<form action="/orderBasket/${member.memberId}" method="get" class="order_form">
 				<div class="cartBtn">
+
 					<button type="button" class="btn_selOrder">선택 주문</button>
 					<button type="button" class="btn_totalOrder">전체 주문</button>
 				</div>
-			</form>
+			</form>--%>
 				<!-- 버튼 ▲ -->
 			<%--</form>--%>
+
+			<!-- 삭제 form -->
+			<form action="/basket/delete" method="post" class="quantity_delete_form">
+				<input type="hidden" name="cartId" class="delete_cartId">
+			</form>
+
+			<!-- 주문 form -->
+
+			<form action="/order/orderPage/${userId}" method="get" class="order_form">
+				<input type="hidden" name="basket" value="${basketInfo}">
+			</form>
+
+
 	</div>
-	
+
 	<script>
 		$(document).ready(function(){
-			
+
 		});
 		$(".btn_totalOrder").on("click", function(){
 			let form_contents = '';
@@ -121,24 +130,49 @@
 			$(".cart_info_tr").each(function(index, element){
 				let total_price = $(element).find(".total_price").val();
 			});
-			$("")
 		});
 
-		$(".btn_select_all").on("change",function(){
-			alert("btn_select_all");
-
-		})
-		$(".all_check_input").on("click", function(){
-			alert("all_check_input");
-			/* 체크박스 체크/해제 */
-			if($(".all_check_input").prop("checked")){
-				alert("all_check_input_cehck");
-				$(".all_check_input").attr("checked", true);
-			} else{
-				$(".all_check_input").attr("checked", false);
-			}
-		
+		/* 장바구니 삭제 버튼 */
+		$(".delete_btn").on("click", function(e){
+			alert("삭제가 완료되었습니다.");
+			e.preventDefault();
+			const cartId = $(this).data("cartid");
+			$(".delete_cartId").val(cartId);
+			$(".quantity_delete_form").submit();
 		});
+
+		/* 바로구매 버튼 */
+		$(".btn_buy").on("click", function(){
+			let bookCount = $(".quantity_input").val();
+			$(".order_form").find("input[name='orders[0].bookCount']").val(bookCount);
+			$(".order_form").submit();
+		});
+/*		/!* 주문 페이지 이동 *!/
+		$(".order_btn").on("click", function(){
+
+			let form_contents ='';
+			let orderNumber = 0;
+
+			$(".cart_info_td").each(function(index, element){
+					let productId = $(element).find(".individual_productId_input").val();
+					let productQuantity = $(element).find(".individual_productQuantity_input").val();
+
+					let productId_input = "<input name='orders[" + orderNumber + "].productId' type='hidden' value='" + productId + "'>";
+					form_contents += productId_input;
+
+					let productQuantity_input = "<input name='orders[" + orderNumber + "].productQuantity' type='hidden' value='" + productQuantity + "'>";
+					form_contents += productQuantity_input;
+
+					orderNumber += 1;
+			});
+
+
+
+			$(".order_form").html(form_contents);
+			$(".order_form").submit();
+
+		});*/
 	</script>
+		<%@include file="../includes/memberfooter.jsp"%>
 </body>
 </html>

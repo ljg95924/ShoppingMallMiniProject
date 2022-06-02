@@ -16,7 +16,7 @@
 	</update>
 	
 	<select id="getBasket" resultType="com.bio11.product.dto.BasketDTO">
-		select a.cart_Id, a.user_id, a.product_id, a.product_quantity, b.product_name, b.product_price
+		select a.cart_Id, a.user_id, a.product_id, a.product_quantity, b.product_name, b.product_price, b.product_img
 		from basket a left outer join product b on a.product_id = b.product_id
 		where user_id = #{userId}
 	</select>

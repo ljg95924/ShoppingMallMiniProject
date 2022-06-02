@@ -244,22 +244,6 @@
         });
 
 
-        // // 파일 업로드
-        // // ajax file upload logic START
-        // $.ajax({
-        // 	url: "/uploadAjaxAction",
-        // 	processData: false, // 전달할 데이터 query string 을 만들지 말 것
-        // 	contentType: false,
-        // 	data: formData,     // 전달할 데이터
-        // 	type: "POST",
-        // 	dataType: 'json',   // 받을 데이터 형식
-        // 	success: function (result) {
-        // 		console.log(result);
-        // 		showUploadedFile(result);
-        // 		$(".uploadDiv").html(cloneObj.html());
-        // 	},
-        // }); // $.ajax END
-
 
     });
 </script>

@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Log4j
 @Service
 @AllArgsConstructor
@@ -41,6 +43,12 @@ public class OrderServiceImpl implements OrderService{
             if(result != 1) return result;
         }
         return result;
+    }
+
+    @Override
+    public List<OrderDetailDTO> getOrderList(int orderId) {
+        log.info("????????????+"+mapper.getOrderList(orderId));
+        return mapper.getOrderList(orderId);
     }
 
 

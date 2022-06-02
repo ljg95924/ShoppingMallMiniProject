@@ -9,5 +9,5 @@ public class OrderDTO {
     private int orderId;
     private String userId;
     private Date orderTime;
-    private String userName;
+    private String orderName;
 }

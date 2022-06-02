@@ -36,6 +36,35 @@
                  </td>
              </tr>
     </table>
+<br><br><br>
+<table width="100%">
+    <colgroup>
+        <col style="width: 100px">
+        <col style="width: 100px; ">
+        <col style="width: 100px; ">
+    </colgroup>
+    <thead>
+    <tr>
+        <th> 주문 상품</th>
+        <th> 주문 수량</th>
+        <th> 주문 가격</th>
+    </tr>
+    <hr>
+    </thead>
+    <c:forEach var="item" items="${orderList}">
+        <tr>
+            <th>${item.orderProductName}</th>
+            <th>${item.orderProductQuantity}</th>
+            <th>${item.orderProductPrice}</th>
+        </tr>
+    </c:forEach>
+</table>
+<br><br><br><hr>
+    <p class="titP">총 상품금액</p>
+    <p class="priceP"><span class="total_price">
+                                    <fmt:formatNumber value="${totalPrice}" pattern="###,###,###"/></span>
+        원
+    </p>
     <a href="/product/list?productType=all"> 메인으로 돌아가기 </a>
 <%@include file="../includes/memberfooter.jsp"%>
 </body>

@@ -12,20 +12,7 @@
 		</h3>
 			<%--<form name="cart_form" id="cart_form" method="post" target="actionFrame" action="order">--%>
 				<input type="hidden" name="cart_version" value="2">
-				<!-- 전체선택 및 선택삭제 ▽ -->
-				<div class="cartSelBtn">
-					<ul>
-						<li>
-							<div class="cartCheckbox">
-								<input type="checkbox" name="allSelect" id="allSelect" class="btn_select_all" checked="checked"><label for="allSelect">전체선택</label>
-							</div>
-						</li>
-						<li>
-							<button type="button" class="btn_select_del">선택삭제</button>
-						</li>
-					</ul>
-				</div>
-				<!-- 전체선택 및 선택삭제 ▲ -->
+
 	
 				<!-- 상품 정보 및 가격 ▽ -->
 				<div class="cartInfo">
@@ -51,6 +38,7 @@
 								<c:forEach var="item" items="${basketInfo}" varStatus="status">
 									<tr class="cart_info_tr">
 										<input type="hidden" class="individual_productId_input" name="list[${status.index}].productId" value="${item.productId}">
+										<input type="hidden" class="individual_productId_input" name="list[${status.index}].cartId" value="${item.cartId}">
 										<%--<input type="hidden" class="individual_productId_input" name="list[${status.index}].cartId" value="${item.cartId}">--%>
 										<td class="tdImg">
 											<figure>
@@ -61,19 +49,19 @@
 										</td>
 										<td class="tdPName">
 											<p class="pName">
-												<input type="hidden" class="individual_productName_input" name="list[${status.index}].productName" value="${item.productName}">
+												<input type="hidden" class="individual_productName_input" name="list[${status.index}].orderProductName" value="${item.productName}">
 													${item.productName}
 											</p>
 										</td>
 										<td class="tdPQuantity">
 											<div class="pQuantity">
-												<input type="hidden" class="individual_productQuantity_input" name="list[${status.index}].productQuantity" value="${item.productQuantity}">
+												<input type="hidden" class="individual_productQuantity_input" name="list[${status.index}].orderProductQuantity" value="${item.productQuantity}">
 													${item.productQuantity}
 											</div>
 										</td>
 										<td>
 											<p class="pPrice">
-												<input type="hidden" class="individual_productPrice_input" name="list[${status.index}].productPrice" value="${item.productPrice}">
+												<input type="hidden" class="individual_productPrice_input" name="list[${status.index}].orderProductPrice" value="${item.productPrice}">
 													${item.productPrice}
 											</p>
 										</td>
@@ -110,6 +98,7 @@
 				<!-- 버튼 ▽ -->
 	<%--		<form action="/orderBasket/${member.memberId}" method="get" class="order_form">
 				<div class="cartBtn">
+
 					<button type="button" class="btn_selOrder">선택 주문</button>
 					<button type="button" class="btn_totalOrder">전체 주문</button>
 				</div>
@@ -158,10 +147,10 @@
 			$(".order_form").find("input[name='orders[0].bookCount']").val(bookCount);
 			$(".order_form").submit();
 		});
-		/* 주문 페이지 이동 */
+/*		/!* 주문 페이지 이동 *!/
 		$(".order_btn").on("click", function(){
 
-			/*let form_contents ='';
+			let form_contents ='';
 			let orderNumber = 0;
 
 			$(".cart_info_td").each(function(index, element){
@@ -175,14 +164,14 @@
 					form_contents += productQuantity_input;
 
 					orderNumber += 1;
-			});*/
+			});
 
 
 
 			$(".order_form").html(form_contents);
 			$(".order_form").submit();
 
-		});
+		});*/
 	</script>
 		<%@include file="../includes/memberfooter.jsp"%>
 </body>
