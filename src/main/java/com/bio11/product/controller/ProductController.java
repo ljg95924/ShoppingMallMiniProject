@@ -46,14 +46,14 @@ public class ProductController {
 		}
 	}
 	
-	@PostMapping("/modify")
+/*	@PostMapping("/modify")
 	public String get(ProductDTO product, RedirectAttributes rttr) {
 		log.info("modify: " + product);
 		if(service.modify(product)) {
 			rttr.addFlashAttribute("result","success");
 		}
 		return "redirect:/board/list";
-	}
+	}*/
 	
 	@GetMapping("/productDetail")
 	public void productDetail(@RequestParam("productId") int productId, Model model) {

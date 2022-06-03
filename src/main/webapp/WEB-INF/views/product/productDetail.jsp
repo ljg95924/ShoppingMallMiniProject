@@ -142,6 +142,9 @@
 							<button type="button" class="plus_btn">+</button>
 							<button type="button" class="minus_btn">-</button>
 						</span>
+                <div>
+                    남은 수량 : ${product.productStock}
+                </div>
             </div>
         </div>
         <div class="pageNew_btn">
@@ -185,7 +188,9 @@
         const form = {
             userId: '${memberDto.userId}',
             productId: '${product.productId}',
-            productQuantity: ''
+            productQuantity: '',
+            productName:'${product.productName}',
+            productPrice:'${product.productPrice}'
         }
 
         // 장바구니 추가 버튼
@@ -219,9 +224,10 @@
         // 결제버튼 클릭시
         $(".btn_buy").on("click", function () {
             let quantity = $(".quantity_input").val();
+            var productStock = ${product.productStock};
             if("${memberDto.userId}" === "") {
                 alert("로그인 후에 이용해주세요.");
-            } else if ('${product.productStock}' < quantity) {
+            } else if ( productStock < quantity) {
                 alert("주문수량에 비해 해당 상품 재고가 부족합니다.");
             } else {
                 form.productQuantity = quantity

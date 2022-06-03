@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@include file="../includes/memberheader.jsp"%>
+
 
 <body>
 <%--<%@include file="../includes/memberheader.jsp"%>--%>
@@ -88,7 +89,7 @@
 							</li>
 						</ul>
 					</div>
-				</div>	<!-- 총 상품금액 ▲ -->\
+				</div>	<!-- 총 상품금액 ▲ -->
 				<!-- 상품 정보 및 가격 ▲ -->
 
 

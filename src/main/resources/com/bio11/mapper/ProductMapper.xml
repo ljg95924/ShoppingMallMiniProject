@@ -20,4 +20,10 @@
 	<select id="read" resultType="com.bio11.product.dto.ProductDTO">
 		SELECT * FROM product WHERE product_id =#{productId}
 	</select>
+
+	<update id="updateQuantity">
+		update product set product_stock=#{productStock} WHERE product_id = #{productId}
+	</update>
+
+
 </mapper>

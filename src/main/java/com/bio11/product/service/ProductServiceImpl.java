@@ -30,12 +30,12 @@ public class ProductServiceImpl implements ProductService{
 		return mapper.getListType(productType);
 	}
 
-	@Override
+/*	@Override
 	public boolean modify(ProductDTO product) {
 		// TODO Auto-generated method stub
 		log.info("modify..."+product);
 		return mapper.update(product)==1;
-	}
+	}*/
 
 	@Override
 	public ProductDTO productDetail(int productId) {

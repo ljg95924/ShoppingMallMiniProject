@@ -10,9 +10,9 @@ public class OrderDetailDTO {
 	private int orderDetailId;
 	private int orderId;//
 	private int productId;//
-	private String productName;//
-	private int productQuantity;//
-	private int productPrice;//
+	private String orderProductName;//
+	private int orderProductQuantity;//
+	private int orderProductPrice;//
 
 	private String userId;
 
