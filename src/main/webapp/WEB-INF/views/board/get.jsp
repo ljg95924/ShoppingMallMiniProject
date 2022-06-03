@@ -27,8 +27,7 @@
 				</div>
 			</div>
 			<!-- /.panel-body -->
-			<button data-oper='modify' class='btn btn-default'
-				onclick="location.href='/board/modify?boardId=<c:out value="${board.boardId}"/>'">Modify</button>
+			<button data-oper='modify' class='btn btn-default' onclick="location.href='/board/modify?boardId=<c:out value="${board.boardId}"/>&userId=<c:out value="${board.userId}"/>'">Modify</button>
 			<button id="listBtn" type="button" data-oper="list"
 				class="btn btn-info">List</button>
 		</div>
@@ -47,13 +46,16 @@
 									<strong class="primary-font">${data.reply}</strong>
 									<small class="pull-right text-muted">${data.replyDate}</small>
 								</div>
-								<p>${data.reply}</p>
+								<p>${data.replyer}</p>
 							</div>
 						</li>
 					</c:forEach>
 				</ul>
 			</div>
 		</div><!-- /.reply panel -->
+
+
+
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModallabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -77,14 +79,16 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button id='modalModBtn' type="button" class="btn btn-info">Modify</button>
+						<%--<button id='modalModBtn' type="button" class="btn btn-info">Modify</button>
 						<button id='modalRemoveBtn' type="button" class="btn btn-info">Remove</button>
+						<button id='modalCloseBtn' type="button" class="btn btn-info">Close</button>--%>
 						<button id='modalRegisterBtn' type="button" class="btn btn-info">Register</button>
-						<button id='modalCloseBtn' type="button" class="btn btn-info">Close</button>
+						<button id='modalCloseBtn' type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
-			</div><!-- moadl content -->
+		</div><!-- moadl content -->
+
 				<div class="panel panel-info">
 					<div class="panel-heading">Attached File List</div>
 					<div class="panel-body">
@@ -102,6 +106,22 @@
 
 
 <script type="text/javascript">
+
+	$(document).ready(() => {
+		let result = '<c:out value="${noReply}"/>';
+		//모달 보여주기 추가
+		const checkModal = (result) => {
+			if(result===""){
+				return;
+			}else {
+				$(".modal-body").html(result);
+				$(".modal-footer").html("<button id='modalCloseBtn' type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+			}
+			$("#myModal").modal("show");
+		}
+		checkModal(result);
+	});
+
 
 	//리스트 버튼 처리
 	$("#listBtn").on("click",() => {
@@ -260,52 +280,52 @@
 	
 	
 	//reply module
-/* 	console.log(replyService);
+ 	// console.log(replyService);
+	//
+	// replyService.add(
+	// 	{reply: "JS TEST", replyer:"js tester", boardId:boardIdValue }, //댓글 데이터
+	// 	function(result) {
+	// 		// alert("RESULT : " + result);
+	// 	}
+	// );
 	
-	replyService.add(
-		{reply: "JS TEST", replyer:"js tester", boardId:boardIdValue }, //댓글 데이터
-		function(result) {
-			alert("RESULT : " + result);
-		}
-	); */
 	
-	
-/*  	replyService.getList(
+  	replyService.getList(
 		{boardId: boardIdValue, page:1},
 		function(list){
 			list.forEach(function(item){
 				console.log(item);
 			});
 		}
-	); */
+	);
 	
 	
-/*  	replyService.remove(
-		6,
-		function(count){
-			console.log(count);
-			if(count ==="success"){
-				alert("REMOVED");
-			}
-		},
-		function(err){
-			alert('error occurred...');
-		}
-	); */
+  	// replyService.remove(
+	// 	6,
+	// 	function(count){
+	// 		console.log(count);
+	// 		if(count ==="success"){
+	// 			alert("REMOVED");
+	// 		}
+	// 	},
+	// 	function(err){
+	// 		alert('error occurred...');
+	// 	}
+	// );
 	
-/* 	replyService.update({
-		rno:3,
-		boardId:boardIdValue,
-		reply:"modified reply...",
-		replyer:"modified repler..."
-		},
-		function(result){
-			alert("수정완료");
-	});
+ 	// replyService.update({
+	// 	rno:3,
+	// 	boardId:boardIdValue,
+	// 	reply:"modified reply...",
+	// 	replyer:"modified repler..."
+	// 	},
+	// 	function(result){
+	// 		alert("수정완료");
+	// });
 	
-	replyService.get(4,function(data){
-		console.log(data);
-	}) */
+	// replyService.get(4,function(data){
+	// 	console.log(data);
+	// })
 
 </script>
 

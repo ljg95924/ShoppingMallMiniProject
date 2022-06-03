@@ -1,5 +1,6 @@
 package com.bio11.member.controller;
 
+import java.lang.reflect.Member;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -81,10 +82,28 @@ public class BoardController {
 	}
 
 	@GetMapping( "/modify")
-	public void modify(@RequestParam("boardId") Long boardId, Model model) {
+	public String modify(@RequestParam("boardId") Long boardId, @RequestParam("userId") String userId, Model model,
+					   HttpServletRequest request, RedirectAttributes ra) {
 		log.info("/modify");
+
+		HttpSession session =  request.getSession();
+		MemberDTO memberDto = (MemberDTO)session.getAttribute("memberDto");
+		if(memberDto == null){
+			log.info("memberDto = null");
+			ra.addFlashAttribute("noReply", "본인 게시물만 수정 가능합니다.");
+			String referer = request.getHeader("Referer");
+			return "redirect:"+ referer;
+		}
+
+		if(!memberDto.getUserId().equals("admin") && !memberDto.getUserId().equals(userId)){
+			ra.addFlashAttribute("noReply", "본인 게시물만 수정 가능합니다.");
+			String referer = request.getHeader("Referer");
+			return "redirect:"+ referer;
+		}
+
 		model.addAttribute("board", service.get(boardId));
 		model.addAttribute("replyList", service.getReplyList(boardId));
+		return "/board/modify";
 	}
 	
 	@PostMapping("/modify")
