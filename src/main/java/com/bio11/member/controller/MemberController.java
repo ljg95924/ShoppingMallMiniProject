@@ -103,6 +103,13 @@ public class MemberController {
 							@RequestParam("day") String day,
 							RedirectAttributes ra) {
 		log.info("/join PostMapping 발생 ");
+
+		if (Integer.parseInt(month) < 10)
+			month = '0' + month;
+		if (Integer.parseInt(day) < 10)
+			day = '0' + day;
+
+
 		memberDto.setUserBirth(year+month+day);
 		log.info("memberDto : " + memberDto);
 		String userId = memberService.getUserIdByEmail(memberDto.getUserEmail());
@@ -140,7 +147,7 @@ public class MemberController {
 		String year = memberDto.getUserBirth().substring(0,4);
 		String month = memberDto.getUserBirth().substring(4,6);
 		String day = memberDto.getUserBirth().substring(6,8);
-		
+
 		
 		model.addAttribute("year",year);
 		model.addAttribute("month",month);
@@ -171,6 +178,10 @@ public class MemberController {
 			}
 		}
 
+		if (Integer.parseInt( month) < 10)
+			month = '0' + month;
+		if (Integer.parseInt(day) < 10)
+			day = '0' + day;
 
 		memberDto.setUserBirth(year+month+day);
 		log.info("Update_memberDto : " + memberDto);

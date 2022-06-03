@@ -409,9 +409,7 @@ let phoneBool = false;        // 전화번호
 		}
 
 	}
-	
 
-	
 	
     function calcAge(birth) {
         var date = new Date();
