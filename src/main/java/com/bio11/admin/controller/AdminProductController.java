@@ -63,7 +63,9 @@ public class AdminProductController {
         log.info(product);
         MultipartFile uploadFile = product.getFile();
 
-        String uploadFolder = "/Users/seotaesu/Desimone/FileUpload/";
+//        String uploadFolder = "/Users/seotaesu/Desimone/FileUpload/";
+        String uploadFolder = "C:\\Users\\seotaesu\\Desimone\\FileUpload\\";
+        log.info("uploadFolder = " + uploadFolder);
         File uploadPath = new File(uploadFolder);
         log.info("upload Path: " + uploadPath);
         if (!uploadPath.exists()) {

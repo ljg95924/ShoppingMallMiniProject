@@ -39,11 +39,13 @@ public class AdminProductControllerTest {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
     }
 
+/*
     @Test
     public void 상품리스트_조회() throws Exception {
         log.info(mockMvc.perform(MockMvcRequestBuilders.get("/admin/product/list"))
                 .andReturn().getModelAndView().getModelMap());
     }
+*/
 
     @Test
     public void 상품등록() throws Exception {
@@ -55,7 +57,16 @@ public class AdminProductControllerTest {
                 "desimone_capsule.png",
                 "desimone_dualstick.png",
                 "desimone_strawberry.png",
-                "desimone4500.png"
+                "desimone4500.png",
+                "aquasell_omega.png",
+                "daynight_multi.png",
+                "kizmulti.png",
+                "kizomega.png",
+                "solution_usle.png",
+                "soution_milk.png",
+                "vegetability_rutain.png"
+
+
         };
 
         MockMultipartFile image = null;

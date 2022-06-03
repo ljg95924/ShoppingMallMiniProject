@@ -67,7 +67,7 @@
 											</p>
 										</td>
 										<td>
-											<button type="button" class="btn_one_buy">바로 구매</button>
+
 											<button type="button" class="delete_btn" data-cartid="${item.cartId}">삭제</button>
 										</td>
 									</tr>

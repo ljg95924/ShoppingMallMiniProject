@@ -198,15 +198,20 @@
             e.preventDefault();
             form.productQuantity = $(".quantity_input").val();
             form.productId = ${product.productId};
-            $.ajax({
-                url: '../basket/addBasket',
-                type: 'POST',
-                data: form,
-                success: function (result) {
-                    cartAlert(result);
+            var productStock = ${product.productStock};
+            if ( productStock < $(".quantity_input").val()) {
+                alert("장바구니에 추가하실 수량에 비해 해당 상품 재고가 부족합니다.");
+            }else {
+                $.ajax({
+                    url: '../basket/addBasket',
+                    type: 'POST',
+                    data: form,
+                    success: function (result) {
+                        cartAlert(result);
 
-                }
-            });
+                    }
+                });
+            }
         });
 
         function cartAlert(result) {
