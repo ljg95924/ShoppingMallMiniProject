@@ -82,7 +82,7 @@
 						<%--<button id='modalModBtn' type="button" class="btn btn-info">Modify</button>
 						<button id='modalRemoveBtn' type="button" class="btn btn-info">Remove</button>
 						<button id='modalCloseBtn' type="button" class="btn btn-info">Close</button>--%>
-						<button id='modalRegisterBtn' type="button" class="btn btn-info">Register</button>
+						<button id='modalRegisterBtn' type="button" class="btn btn-info" >Register</button>
 						<button id='modalCloseBtn' type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div>
@@ -108,18 +108,18 @@
 <script type="text/javascript">
 
 	$(document).ready(() => {
-		let result = '<c:out value="${noReply}"/>';
+		let noReply = '<c:out value="${noReply}"/>';
 		//모달 보여주기 추가
-		const checkModal = (result) => {
-			if(result===""){
+		const checkModal = (noReply) => {
+			if(noReply===""){
 				return;
 			}else {
-				$(".modal-body").html(result);
-				$(".modal-footer").html("<button id='modalCloseBtn' type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+				$(".modal-body").html(noReply);
+				$(".modal-footer").html("<button id='modalCloseBtn' type='button' class='btn btn-default' data-dismiss='modal' onClick='window.location.reload()'>Close</button>");
 			}
 			$("#myModal").modal("show");
 		}
-		checkModal(result);
+		checkModal(noReply);
 	});
 
 
